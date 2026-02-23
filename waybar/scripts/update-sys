@@ -7,7 +7,7 @@ case $1 in
     aur) echo "$AUR";;
     official) echo "$OFFICIAL";;
     update)
-        kitty --title update-sys sh -c 'yay -Syu --noconfirm --answerdiff N --answerclean N'
+        kitty sh -c 'yay -Syu --cleanmenu=false --diffmenu=false && yay -Yc && paccache -r -k 2'
         ;;
     "")
         COUNT=$((OFFICIAL+AUR))
