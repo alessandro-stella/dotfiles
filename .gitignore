@@ -21,6 +21,7 @@ xfce4
 xsettingsd
 QtProject.conf
 user-dirs.locale
+GIMP
 
 /code-flags.conf
 /user-dirs.dirs
