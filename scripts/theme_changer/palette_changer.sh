@@ -1,157 +1,234 @@
 #!/bin/bash
 
 WALLPAPER="$HOME/.config/wallpaper/current_wallpaper.png"
-WAL_COLORS_JSON="$HOME/.cache/wallust/colors.json"
+WAL_CACHE="$HOME/.cache/wallust"
+WAL_COLORS_JSON="$WAL_CACHE/colors.json"
+KITTY_CONF="$WAL_CACHE/colors-kitty.conf"
+
 HYPR_CONF="$HOME/.config/hypr/dynamic-border.conf"
 TEMPLATE="$HOME/.config/wlogout/template.css"
 OUTPUT="$HOME/.config/wlogout/style.css"
+
 OPACITY="ee"
 
-# Filter parameters
-BRIGHT_MIN=30
-BRIGHT_MAX=230
+BRIGHT_MIN=80
+BRIGHT_MAX=235
 
-# Check dependencies
-for cmd in wallust jq awk sed hyprctl bc; do
-  command -v "$cmd" >/dev/null 2>&1 || { echo "Error: $cmd is not installed."; exit 1; }
+MIN_CONTRAST=4.8
+MIN_LUMINANCE_DELTA=0.28
+
+# dependencies
+for cmd in wallust jq awk sed hyprctl grep; do
+ command -v "$cmd" >/dev/null || { echo "Missing $cmd"; exit 1; }
 done
 
-# Generate palette
-rm -rf ~/.cache/wallust
-wallust run "$WALLPAPER" || { echo "Error: wallust failed."; exit 1; }
+# generate palette
+rm -rf "$WAL_CACHE"
+wallust run "$WALLPAPER" || exit 1
 
-# Utility functions
+TERMINAL_BG=$(grep -E "^background" "$KITTY_CONF" | awk '{print $2}')
+
+[[ "$TERMINAL_BG" =~ ^#[0-9a-fA-F]{6}$ ]] || { echo "Background detection failed"; exit 1; }
+
+############################
+# utility functions
+############################
+
 hex_to_rgb() {
-  local hex="${1#"#"}"
-  echo "$((16#${hex:0:2})) $((16#${hex:2:2})) $((16#${hex:4:2}))"
-}
-
-dominant_channel() {
-  local r=$1; local g=$2; local b=$3
-  if (( r >= g && r >= b )); then echo "R"
-  elif (( g >= r && g >= b )); then echo "G"
-  else echo "B"; fi
+ local h=${1#"#"}
+ echo "$((16#${h:0:2})) $((16#${h:2:2})) $((16#${h:4:2}))"
 }
 
 hex_to_brightness() {
-  local hex="${1#"#"}"
-  local r=$((16#${hex:0:2}))
-  local g=$((16#${hex:2:2}))
-  local b=$((16#${hex:4:2}))
-  echo "$(awk "BEGIN {print 0.299*$r + 0.587*$g + 0.114*$b}")"
+ local h=${1#"#"}
+ local r=$((16#${h:0:2}))
+ local g=$((16#${h:2:2}))
+ local b=$((16#${h:4:2}))
+ echo $(( (299*r + 587*g + 114*b) / 1000 ))
+}
+
+dominant_channel() {
+ local r=$1 g=$2 b=$3
+ ((r>=g && r>=b)) && echo R && return
+ ((g>=r && g>=b)) && echo G && return
+ echo B
+}
+
+hex_to_luminance() {
+
+ local h=${1#"#"}
+
+ r=$(printf "%d" 0x${h:0:2})
+ g=$(printf "%d" 0x${h:2:2})
+ b=$(printf "%d" 0x${h:4:2})
+
+ awk -v r=$r -v g=$g -v b=$b '
+ function f(v){
+  v/=255
+  return (v<=0.03928)? v/12.92 : ((v+0.055)/1.055)^2.4
+ }
+ BEGIN{
+  R=f(r);G=f(g);B=f(b)
+  print 0.2126*R + 0.7152*G + 0.0722*B
+ }'
+}
+
+contrast_ratio() {
+
+ local L1=$(hex_to_luminance "$1")
+ local L2=$(hex_to_luminance "$2")
+
+ awk -v a=$L1 -v b=$L2 '
+ BEGIN{
+  if(a<b){t=a;a=b;b=t}
+  print (a+0.05)/(b+0.05)
+ }'
+}
+
+############################
+# color correction
+############################
+
+adjust_color() {
+
+ local color=$1
+ read r g b <<< $(hex_to_rgb "$color")
+
+ local bg_l=$(hex_to_luminance "$TERMINAL_BG")
+
+ for ((i=0;i<32;i++)); do
+
+  current=$(printf "#%02x%02x%02x" $r $g $b)
+
+  contrast=$(contrast_ratio "$current" "$TERMINAL_BG")
+  col_l=$(hex_to_luminance "$current")
+
+  ok=$(awk -v c=$contrast -v l=$col_l -v bg=$bg_l \
+  -v mc=$MIN_CONTRAST -v md=$MIN_LUMINANCE_DELTA \
+  'BEGIN{print (c>=mc && (l-bg)>=md)}')
+
+  [[ $ok -eq 1 ]] && { echo "$current"; return; }
+
+  ((r+=12))
+  ((g+=12))
+  ((b+=12))
+
+  ((r>255)) && r=255
+  ((g>255)) && g=255
+  ((b>255)) && b=255
+
+ done
+
+ printf "#%02x%02x%02x\n" $r $g $b
 }
 
 print_color_box() {
-  local hex="${1//#/}"
-  local r=$((16#${hex:0:2}))
-  local g=$((16#${hex:2:2}))
-  local b=$((16#${hex:4:2}))
-  local label="$2"
-  printf "%s: #%s " "$label" "$hex"
-  printf "\e[48;2;%d;%d;%dm  \e[0m\n" "$r" "$g" "$b"
+ local hex=${1#"#"}
+ local r=$((16#${hex:0:2}))
+ local g=$((16#${hex:2:2}))
+ local b=$((16#${hex:4:2}))
+ printf "%s: #%s \e[48;2;%d;%d;%dm  \e[0m\n" "$2" "$hex" "$r" "$g" "$b"
 }
 
-# Extract colors from JSON
-COLORS_ARRAY=($(jq -r '.[]' "$WAL_COLORS_JSON"))
+############################
+# load palette
+############################
+
+mapfile -t COLORS_ARRAY < <(jq -r '.[]' "$WAL_COLORS_JSON")
+
 declare -A color_info
 
 for hex in "${COLORS_ARRAY[@]}"; do
-  [[ "$hex" =~ ^#[0-9a-fA-F]{6}$ ]] || continue
-  read r g b <<< "$(hex_to_rgb "$hex")"
-  brightness=$(hex_to_brightness "$hex")
-  dominant=$(dominant_channel "$r" "$g" "$b")
 
-  # Filter: discard colors too dark or too bright
-  if (( $(echo "$brightness < $BRIGHT_MIN || $brightness > $BRIGHT_MAX" | bc -l) )); then
-    continue
-  fi
+ [[ "$hex" =~ ^#[0-9a-fA-F]{6}$ ]] || continue
 
-  key="${hex}"
-  color_info["$key"]="$brightness|$dominant"
+ contrast=$(contrast_ratio "$hex" "$TERMINAL_BG")
+
+ awk -v c=$contrast -v m=$MIN_CONTRAST 'BEGIN{exit !(c<m)}'
+ if [[ $? == 0 ]]; then
+  hex=$(adjust_color "$hex")
+ fi
+
+ brightness=$(hex_to_brightness "$hex")
+
+ ((brightness < BRIGHT_MIN || brightness > BRIGHT_MAX)) && continue
+
+ read r g b <<< $(hex_to_rgb "$hex")
+ dominant=$(dominant_channel "$r" "$g" "$b")
+
+ color_info["$hex"]="$brightness|$dominant"
+
 done
 
-# Check if there are enough colors
-if (( ${#color_info[@]} < 2 )); then
-  echo "Error: Palette too limited after brightness filtering."
-  exit 1
-fi
+(( ${#color_info[@]} < 2 )) && { echo "Palette too small"; exit 1; }
 
-# Sort by descending brightness
+############################
+# select accent colors
+############################
+
 sorted_colors=($(for c in "${!color_info[@]}"; do
-  echo "$c ${color_info[$c]%%|*}"
+ echo "$c ${color_info[$c]%%|*}"
 done | sort -k2 -nr | awk '{print $1}'))
 
-# First color
-color1="${sorted_colors[0]}"
-brightness1="${color_info[$color1]%%|*}"
-dominant1="${color_info[$color1]##*|}"
+color1=${sorted_colors[0]}
+dominant1=${color_info[$color1]##*|}
 
-# Second color: with different dominant channel and minimum distance
-color2=""
+read r1 g1 b1 <<< $(hex_to_rgb "$color1")
+
 min_dist=9999
-
-read r1 g1 b1 <<< "$(hex_to_rgb "$color1")"
+color2=""
 
 for c in "${sorted_colors[@]:1}"; do
-  dominant2="${color_info[$c]##*|}"
-  [[ "$dominant2" == "$dominant1" ]] && continue
 
-  read r2 g2 b2 <<< "$(hex_to_rgb "$c")"
-  dist=$(awk "BEGIN {
-    dx = $r1 - $r2; dy = $g1 - $g2; dz = $b1 - $b2;
-    print sqrt(dx*dx + dy*dy + dz*dz)
-  }")
+ dom=${color_info[$c]##*|}
+ [[ "$dom" == "$dominant1" ]] && continue
 
-  if (( $(echo "$dist < $min_dist" | bc -l) )); then
-    min_dist=$dist
-    color2="$c"
-  fi
+ read r2 g2 b2 <<< $(hex_to_rgb "$c")
+
+ dist=$(( (r1-r2)*(r1-r2) + (g1-g2)*(g1-g2) + (b1-b2)*(b1-b2) ))
+
+ (( dist < min_dist )) && { min_dist=$dist; color2=$c; }
+
 done
 
-# Fallback
-if [ -z "$color2" ]; then
-  echo "Warning: No color with different dominant channel found. Using second brightest."
-  color2="${sorted_colors[1]}"
-  dominant2="${color_info[$color2]##*|}"
-fi
+[[ -z "$color2" ]] && color2=${sorted_colors[1]}
 
-# === OUTPUT TO SCREEN ===
-echo -e "\n🎨 Selected colors:"
-print_color_box "$color1" "Color1 (Dominant $dominant1)"
-print_color_box "$color2" "Color2 (Dominant $dominant2)"
-echo ""
+############################
+# output
+############################
 
-# === WLOGOUT ===
-hex_rgb="${color2//#/}"
-r=$((16#${hex_rgb:0:2}))
-g=$((16#${hex_rgb:2:2}))
-b=$((16#${hex_rgb:4:2}))
-rgb_string="$r, $g, $b"
-sed "s/__BUTTON_ACCENT__/${rgb_string}/g" "$TEMPLATE" > "$OUTPUT"
-echo "✅ Wlogout CSS updated with RGB color: $rgb_string"
+echo
+print_color_box "$color1" "Color1"
+print_color_box "$color2" "Color2"
+echo
 
-# === WAYBAR ===
+# wlogout
+hex=${color2#"#"}
+r=$((16#${hex:0:2}))
+g=$((16#${hex:2:2}))
+b=$((16#${hex:4:2}))
+
+sed "s/__BUTTON_ACCENT__/$r, $g, $b/g" "$TEMPLATE" > "$OUTPUT"
+
+# waybar
 "$(dirname "$0")/waybar_changer.sh" "$color1"
 
-# === OH-MY-POSH ===
+# oh-my-posh
 "$(dirname "$0")/oh_my_posh_changer.sh"
 
-# === SWAYNC ===
+# swaync
 "$(dirname "$0")/swaync_changer.sh" "$color1"
 
-# === HYPRLAND ===
+# hyprland
 hex_with_opacity() {
-  local hex="${1//#/}"
-  echo "${hex}${OPACITY}"
+ echo "${1#"#"}$OPACITY"
 }
 
-color1_opacity=$(hex_with_opacity "$color1")
-color2_opacity=$(hex_with_opacity "$color2")
-
-conf_content="general {
-  col.active_border = rgba(${color1_opacity}) rgba(${color2_opacity}) 45deg
+conf="general {
+ col.active_border = rgba($(hex_with_opacity $color1)) rgba($(hex_with_opacity $color2)) 45deg
 }"
 
-echo "$conf_content" > "$HYPR_CONF"
+echo "$conf" > "$HYPR_CONF"
 hyprctl reload
-echo "✅ Hyprland: border updated in $HYPR_CONF"
+
+echo "Hyprland border updated"
