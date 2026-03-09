@@ -229,6 +229,7 @@ NEOVIM_PACKAGES=(
   "tailwindcss-language-server"
   "vscode-html-languageserver"
   "noto-fonts-emoji"
+  "ripgrep"
 )
 ### === END CONFIG.SH === ###
 
