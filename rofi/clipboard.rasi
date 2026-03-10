@@ -1,10 +1,19 @@
 /* === Configuration === */
 
 configuration {
+    disable-history: true;
     modi:                       "drun";
     show-icons:                 true;
     drun-display-format:        "{name}";
-    window-format:              "{w} · {c} · {t}";
+    drun-match-fields: "name";
+    drun-show-actions: false;
+    case-sensitive: false;
+    sort: true;
+    
+    matching: "regex";
+    fuzzy: true;
+    transition: none;
+
     hover-select:               true;
     me-select-entry:            "MouseSecondary";
     me-accept-entry:            "MousePrimary";
@@ -33,7 +42,7 @@ window {
     transparency:               "real";
     cursor:                     "default";
     spacing:                    0px;
-    border:                     3px 0px 3px 0px;
+    border:                     2px 0px 2px 0px;
     border-radius:              5px;
     location:                   center;
     anchor:                     center;
@@ -45,7 +54,6 @@ window {
 
 /* ===- Main Box ===- */
 mainbox {
-	padding:					 12px;
     enabled:                     true;
     orientation:                 vertical;
     children:                    [ "inputbar", "listbox" ];
@@ -71,7 +79,7 @@ entry {
     expand:                      false;
     width:                       20%;
     padding:                     10px;
-    border-radius:               12px;
+    border-radius:               5px;
     background-color:            @active;
     text-color:                  @text-selected;
     cursor:                      text;
@@ -90,24 +98,12 @@ listbox {
 
 /* === Listview === */
 listview {
-    enabled:                     true;
-    columns:                     5;
-    lines:                       4;
-    cycle:                       true;
-    dynamic:                     true;
-    scrollbar:                   true;
-    layout:                      vertical;
-    flow:                        horizontal;
-    reverse:                     false;
-    fixed-height:                true;
-    fixed-columns:               true;    
-    spacing:                     10px;
-    background-color:            transparent;
-    margin: 					 10px;
-    text-color:					 @foreground;
-
-//  Adapt rofi theme
-    border:                      0px;
+    columns: 1;
+    lines: 7;
+    fixed-height: false;
+    dynamic: true;
+    flow: vertical;
+    border: 0px;
 }
 
 /* === Dummy === */
@@ -122,18 +118,18 @@ scrollbar {
     border-radius:				10px;
     border-color:				@color12;
     handle-color: 				@color11;
-    handle-width: 				2px ;
+    handle-width: 				2px;
     padding:      				0;
 }
 
 /* === Elements === */
 element {
     enabled:                     true;
-    orientation: 				 vertical;
+    orientation: 				 horizontal;
   	padding: 					 10px;
   	spacing: 					 0px;
-    border-radius:               12px;
-    background-color:            transparent;
+    border-radius:               5px;
+    background-color:   transparent;
     cursor:                      pointer;
 }
 
@@ -152,8 +148,8 @@ element normal.active {
 }
 
 element selected.normal {
-    border:                      0px 3px 0px 3px;
-    border-radius:               16px;
+    border:                      0px 0px 0px 2px;
+    border-radius:               5px;
     border-color:                @active;
     background-color:            transparent;
     text-color:                  @selected;
@@ -181,17 +177,15 @@ element alternate.active {
     text-color:                  inherit;
 }
 element-icon {
-  	size: 						 10%;
-    background-color:            transparent;
-    text-color:                  inherit;
-    cursor:                      inherit;
+  enabled: false;
 }
 element-text {
+    wrap: true;
     background-color:            transparent;
     text-color:                  inherit;
     cursor:                      inherit;
     vertical-align:              0.5;
-    horizontal-align:            0.5;
+    horizontal-align:            0.0;
 }
 
 /* === Message === */

@@ -23,12 +23,14 @@ QtProject.conf
 user-dirs.locale
 GIMP
 evince
+systemd
 
 /code-flags.conf
 /user-dirs.dirs
 /trashrc
 /hypr/dynamic-border.conf
 /hypr/device-settings.conf
+/hypr/custom-keybinds.conf
 
 /wallpaper
 /wlogout/style.css

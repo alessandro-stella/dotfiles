@@ -7,5 +7,3 @@ font: "JetBrainsMono Nerd Font SemiBold 13";
 element-text {
 font: "JetBrainsMono Nerd Font SemiBold 11";
 }
-
-@theme "~/.config/rofi/theme.rasi"

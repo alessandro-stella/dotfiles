@@ -9,7 +9,7 @@ gif_cache_dir="$HOME/.cache/gif_preview"
 video_cache_dir="$HOME/.cache/video_preview"
 cache_list="$cache_dir/wallpaper_list.cache"
 cache_hash="$cache_dir/dir_hash.txt"
-theme_path="$HOME/.config/rofi/theme.rasi"
+theme_path="$HOME/.config/rofi/theme_changer.rasi"
 
 mkdir -p "$cache_dir" "$gif_cache_dir" "$video_cache_dir"
 

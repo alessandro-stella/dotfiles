@@ -267,6 +267,9 @@ touch "$CONFIG/hypr/$CUSTOM_SETTINGS"
 echo "# Basic monitor configuration" > "$CONFIG/hypr/$CUSTOM_SETTINGS"
 echo "monitor = , preferred, auto, 1" >> "$CONFIG/hypr/$CUSTOM_SETTINGS"
 
+# Add file for custom keybinds
+touch "$CONFIG/hypr/$CUSTOM_KEYBINDS"
+
 # Remove line from hyprland.conf
 TARGET_FILE="$CONFIG/hypr/hyprland.conf"
 LINE='exec-once = ~/.config/scripts/update_configs.sh # Pull remote changes to .config and nvim'

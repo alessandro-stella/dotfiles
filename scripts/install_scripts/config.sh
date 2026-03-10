@@ -6,6 +6,7 @@ DOTFILES_FOLDER="dotfiles"
 DOTFILES_REPO="$GITHUB_LINK/$DOTFILES_FOLDER"
 INSTALL_SCRIPTS="scripts/install_scripts"
 CUSTOM_SETTINGS="device-settings.conf"
+CUSTOM_KEYBINDS="custom-keybinds.conf"
 DYNAMIC_BORDER="dynamic-border.conf"
 
 # Additional resources (wallpaper, .bashrc etc)
@@ -82,6 +83,9 @@ PACMAN_PACKAGES=(
   "udisks2"
   "ntfs-3g"
   "evince"
+  "cliphist",
+  "wl-clipboard",
+  "wtype",
   "libreoffice-still"
   "libreoffice-still-it"
   "npm"
