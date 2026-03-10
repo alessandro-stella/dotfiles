@@ -154,6 +154,10 @@ tooltip label {
 }
 
 /* Animations & Specific Padding */
+#custom-temperature {
+  padding-left: 5px;
+}
+
 #custom-notification {
   transition: color 0.15s ease-in-out;
 }
