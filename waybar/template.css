@@ -127,16 +127,14 @@ tooltip label {
 
 #pulseaudio {
   color: #89b4fa;
+  padding-left: 5px;
 }
 
 #pulseaudio.microphone {
   color: #cba6f7;
 }
 
-#battery {
-  color: #a6e3a1;
-}
-
+#battery,
 #custom-power_profile {
   color: #a6e3a1;
 }
