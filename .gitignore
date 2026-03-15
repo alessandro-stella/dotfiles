@@ -24,7 +24,10 @@ user-dirs.locale
 GIMP
 evince
 systemd
+vesktop
 
+electron-builder.json
+kwalletrc
 /code-flags.conf
 /user-dirs.dirs
 /trashrc
