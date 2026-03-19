@@ -1,9 +1,9 @@
 [theme_changer]: https://github.com/user-attachments/assets/9da37771-c02c-4b43-9895-63b8ea2739a9
 
 # Dotfiles for custom Arch Linux + Hyprland config
-
-## Core concepts
 This configuration prioritizes simplicity and usability for developers, without sacrificing customizability and aesthetic.
+
+<br>
 
 ## Configuration Overview
 <a href="https://github.com/user-attachments/assets/051adf6d-499c-4ed0-bfde-dbf714c8b50e" target="_blank">
@@ -29,25 +29,30 @@ This configuration prioritizes simplicity and usability for developers, without 
 - Main shell: bash
 - Prompt: oh-my-posh
 - Package manager: pacman and yay
-- Emulator: Kitty
+- Emulator: Kitty (<kbd>SUPER</kbd> + <kbd>ENTER</kbd>)
 - Font: JetBrains Mono Nerd
 - System info: btop, fastfetch
 
 ### User Experience and Aesthetic
 - Status bar: waybar
-- File manager: nautilus
+- File manager: nautilus (<kbd>SUPER</kbd> + <kbd>E</kbd>)
 - GTK / QT theme: adw-gtk3
 - Icon set: Adwaita
 - Login greeter: SDDM
-- Lock: swaylock and wlogout
+- Lock: swaylock (<kbd>SUPER</kbd> + <kbd>SHIFT</kbd> + <kbd>L</kbd>) and wlogout (<kbd>SUPER</kbd> + <kbd>M</kbd>)
+- Notification management: swaync (<kbd>SUPER</kbd> + <kbd>N</kbd>)
 - Multimedia and audio: pamixer, pavucontrol, blueman, brightnessctl
 - Network and safety: network-manager-applet, ufw, tlp
-- Main browser: Brave
+- Main browser: Brave (<kbd>SUPER</kbd> + <kbd>B</kbd>)
+
+<br>
 
 ## Custom scripts
 On each login some scripts are launched to enhanche the user experience. All of these can be found in "*~/.config/scripts*"
 - **clean_java_workspaces.sh**: when working with java a folder gets created to cache compiled workspaces. This script deletes all those workspaces older than 3 months to avoid excessive memory usage.
 - **clean_screenshots.sh**: all screenshots taken during current session are saved in "*~/Pictures/Screenshots*". On each login the content of this folder gets deleted to avoid keeping too many useless images.
+
+<br>
 
 ## Theme changer
 ![alt_text][theme_changer]
@@ -55,8 +60,10 @@ On each login some scripts are launched to enhanche the user experience. All of 
 There's a built-in theme changer to create custom themes starting from an image. To create a theme you just need to add a "*.png*" inside "*~/Pictures/wallpapers*" and launch the theme changer. Every aspect of the configuration will be adapted to mime the palette of the choosen image.
 
 ## Additional features
-Some websites frequently used, such as ChatGpt, Google Gemini and Microsoft Teams, can be quickly launched with their specific shortcut. These concept can be further expanded by adding all frequently used apps. Some suggestions might be Whatsapp Web or Discord.
+Although some apps don't have a proper arch/wayland port they can be easily mimick  Some websites frequently used, such as Whatsapp Web, ChatGpt, Google Gemini and Microsoft Teams, can be quickly launched with their specific shortcut. These concept can be further expanded by adding all frequently used apps. Some suggestions might be Discord, Chess.com, YouTube and a lot more.
 At the end of "*~/.config/hypr/hyprland.conf*" those shortcuts can be changed, or new ones can be added by following the same pattern.
+
+<br>
 
 ## Installation
 
