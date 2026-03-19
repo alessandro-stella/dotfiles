@@ -72,8 +72,8 @@ There's a built-in theme changer to create custom themes starting from an image.
 <br>
 
 ## Additional features
-Although some apps don't have a proper arch/wayland port they can be easily mimick  Some websites frequently used, such as Whatsapp Web, ChatGpt, Google Gemini and Microsoft Teams, can be quickly launched with their specific shortcut. These concept can be further expanded by adding all frequently used apps. Some suggestions might be Discord, Chess.com, YouTube and a lot more.
-At the end of "*~/.config/hypr/hyprland.conf*" those shortcuts can be changed, or new ones can be added by following the same pattern.
+Although some apps don't have a proper arch/wayland port they can be easily mimicked by opening a web app in a native app window. Some websites frequently used, such as Whatsapp Web, ChatGpt, Google Gemini and Microsoft Teams, can be quickly launched with their specific shortcut. This concept can be further expanded by adding all frequently used apps. Some suggestions might be Discord, Chess.com, YouTube and a lot more.
+At the end of "*~/.config/hypr/hyprland.conf*" those shortcuts can be changed, or new ones can be added by following the same pattern in "*~/.config/hypr/custom-keybinds.conf*".
 
 <br>
 
