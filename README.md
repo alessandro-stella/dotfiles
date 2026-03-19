@@ -1,9 +1,4 @@
-[sddm]: https://github.com/user-attachments/assets/d752e47d-3af8-4949-a48f-b1fa697abcb1
-[wlogout]: https://github.com/user-attachments/assets/a62059bd-0f3e-4463-b050-03b97ffd153e
-[shell]: https://github.com/user-attachments/assets/f81e980f-ee29-49d7-b496-395b90dd3425
-[theme_changer]: https://github.com/user-attachments/assets/ff9fb61f-6d26-4b36-bf20-965440a01e6d
-[showcase]: https://github.com/user-attachments/assets/732fd1c3-df08-4414-b5b7-d441e79b26a9
-[btop]: https://github.com/user-attachments/assets/feeae605-7c89-4e0d-aa4c-95d5c6540403
+[theme_changer]: https://github.com/user-attachments/assets/9da37771-c02c-4b43-9895-63b8ea2739a9
 
 # Dotfiles for custom Arch Linux + Hyprland config
 
@@ -11,17 +6,23 @@
 This configuration prioritizes simplicity and usability for developers, without sacrificing customizability and aesthetic.
 
 ## Configuration Overview
-<a href="https://github.com/user-attachments/assets/d752e47d-3af8-4949-a48f-b1fa697abcb1" target="_blank">
-  <img src="https://github.com/user-attachments/assets/d752e47d-3af8-4949-a48f-b1fa697abcb1" alt="SDDM Greeter" width="47.5%">
+<a href="https://github.com/user-attachments/assets/051adf6d-499c-4ed0-bfde-dbf714c8b50e" target="_blank">
+  <img src="https://github.com/user-attachments/assets/051adf6d-499c-4ed0-bfde-dbf714c8b50e" alt="SDDM Greeter" width="32.5%">
 </a>
-<a href="https://github.com/user-attachments/assets/a62059bd-0f3e-4463-b050-03b97ffd153e" target="_blank">
-  <img src="https://github.com/user-attachments/assets/a62059bd-0f3e-4463-b050-03b97ffd153e" alt="wlogout" width="47.5%">
+<a href="https://github.com/user-attachments/assets/cc831832-8fae-4997-b7af-83e77769ae40" target="_blank">
+  <img src="https://github.com/user-attachments/assets/cc831832-8fae-4997-b7af-83e77769ae40" alt="Wlogout" width="32.5%">
 </a>
-<a href="https://github.com/user-attachments/assets/f81e980f-ee29-49d7-b496-395b90dd3425" target="_blank">
-  <img src="https://github.com/user-attachments/assets/f81e980f-ee29-49d7-b496-395b90dd3425" alt="Shell" width="47.5%">
+<a href="https://github.com/user-attachments/assets/fa686d04-cfa2-475f-a757-a75cb4fa2f65" target="_blank">
+  <img src="https://github.com/user-attachments/assets/fa686d04-cfa2-475f-a757-a75cb4fa2f65" alt="Shell and Notification Center" width="32.5%">
 </a>
-<a href="https://github.com/user-attachments/assets/732fd1c3-df08-4414-b5b7-d441e79b26a9" target="_blank">
-  <img src="https://github.com/user-attachments/assets/732fd1c3-df08-4414-b5b7-d441e79b26a9" alt="General showcase" width="47.5%">
+<a href="https://github.com/user-attachments/assets/fa7066c7-ec83-4e6c-a03e-7814cb2cfb14" target="_blank">
+  <img src="https://github.com/user-attachments/assets/fa7066c7-ec83-4e6c-a03e-7814cb2cfb14" alt="App Launcher" width="32.5%">
+</a>
+<a href="https://github.com/user-attachments/assets/d926dd90-458e-408a-a85c-1f3c09347e4d" target="_blank">
+  <img src="https://github.com/user-attachments/assets/d926dd90-458e-408a-a85c-1f3c09347e4d" alt="Clipboard" width="32.5%">
+</a>
+<a href="https://github.com/user-attachments/assets/c0f6a19a-c53e-4038-b0a0-353309e3c14b" target="_blank">
+  <img src="https://github.com/user-attachments/assets/c0f6a19a-c53e-4038-b0a0-353309e3c14b" alt="General Showcase" width="32.5%">
 </a>
 
 ### Shell and Terminal
