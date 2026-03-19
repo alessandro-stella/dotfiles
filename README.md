@@ -47,6 +47,16 @@ This configuration prioritizes simplicity and usability for developers, without 
 
 <br>
 
+## Keybinds
+- Close window: <kbd>SUPER</kbd> + <kbd>Q</kbd>
+- Graphical App Launcher: <kbd>SUPER</kbd> + <kbd>SPACE</kbd>
+- Open Clipboard: <kbd>SUPER</kbd> + <kbd>V</kbd>
+- Take a screenshot of a portion of the screen: <kbd>SUPER</kbd> + <kbd>SHIFT</kbd> + <kbd>S</kbd>
+- Make a window fullscreen: <kbd>SUPER</kbd> + <kbd>SHIFT</kbd> + <kbd>F</kbd>
+
+
+<br>
+
 ## Custom scripts
 On each login some scripts are launched to enhanche the user experience. All of these can be found in "*~/.config/scripts*"
 - **clean_java_workspaces.sh**: when working with java a folder gets created to cache compiled workspaces. This script deletes all those workspaces older than 3 months to avoid excessive memory usage.
@@ -58,6 +68,8 @@ On each login some scripts are launched to enhanche the user experience. All of 
 ![alt_text][theme_changer]
 
 There's a built-in theme changer to create custom themes starting from an image. To create a theme you just need to add a "*.png*" inside "*~/Pictures/wallpapers*" and launch the theme changer. Every aspect of the configuration will be adapted to mime the palette of the choosen image.
+
+<br>
 
 ## Additional features
 Although some apps don't have a proper arch/wayland port they can be easily mimick  Some websites frequently used, such as Whatsapp Web, ChatGpt, Google Gemini and Microsoft Teams, can be quickly launched with their specific shortcut. These concept can be further expanded by adding all frequently used apps. Some suggestions might be Discord, Chess.com, YouTube and a lot more.
