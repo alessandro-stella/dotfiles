@@ -3,7 +3,6 @@ Code
 Code - OSS
 libreoffice
 chromium
-nvim
 gtk-2.0
 gtk-4.0
 github-copilot
@@ -41,3 +40,5 @@ kwalletrc
 /swaync/style.css
 /waybar/style.css
 /oh-my-posh/themes/current_theme.omp.json
+
+nvim/
