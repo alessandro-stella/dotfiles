@@ -6,24 +6,12 @@ This configuration prioritizes simplicity and usability for developers, without 
 <br>
 
 ## Configuration Overview
-<a href="https://github.com/user-attachments/assets/051adf6d-499c-4ed0-bfde-dbf714c8b50e" target="_blank">
-  <img src="https://github.com/user-attachments/assets/051adf6d-499c-4ed0-bfde-dbf714c8b50e" alt="SDDM Greeter" width="32.5%">
-</a>
-<a href="https://github.com/user-attachments/assets/cc831832-8fae-4997-b7af-83e77769ae40" target="_blank">
-  <img src="https://github.com/user-attachments/assets/cc831832-8fae-4997-b7af-83e77769ae40" alt="Wlogout" width="32.5%">
-</a>
-<a href="https://github.com/user-attachments/assets/fa686d04-cfa2-475f-a757-a75cb4fa2f65" target="_blank">
-  <img src="https://github.com/user-attachments/assets/fa686d04-cfa2-475f-a757-a75cb4fa2f65" alt="Shell and Notification Center" width="32.5%">
-</a>
-<a href="https://github.com/user-attachments/assets/fa7066c7-ec83-4e6c-a03e-7814cb2cfb14" target="_blank">
-  <img src="https://github.com/user-attachments/assets/fa7066c7-ec83-4e6c-a03e-7814cb2cfb14" alt="App Launcher" width="32.5%">
-</a>
-<a href="https://github.com/user-attachments/assets/d926dd90-458e-408a-a85c-1f3c09347e4d" target="_blank">
-  <img src="https://github.com/user-attachments/assets/d926dd90-458e-408a-a85c-1f3c09347e4d" alt="Clipboard" width="32.5%">
-</a>
-<a href="https://github.com/user-attachments/assets/c0f6a19a-c53e-4038-b0a0-353309e3c14b" target="_blank">
-  <img src="https://github.com/user-attachments/assets/c0f6a19a-c53e-4038-b0a0-353309e3c14b" alt="General Showcase" width="32.5%">
-</a>
+<img src="https://github.com/user-attachments/assets/051adf6d-499c-4ed0-bfde-dbf714c8b50e" alt="SDDM Greeter" width="32.5%">
+<img src="https://github.com/user-attachments/assets/cc831832-8fae-4997-b7af-83e77769ae40" alt="Wlogout" width="32.5%">
+<img src="https://github.com/user-attachments/assets/fa686d04-cfa2-475f-a757-a75cb4fa2f65" alt="Shell and Notification Center" width="32.5%">
+<img src="https://github.com/user-attachments/assets/fa7066c7-ec83-4e6c-a03e-7814cb2cfb14" alt="App Launcher" width="32.5%">
+<img src="https://github.com/user-attachments/assets/d926dd90-458e-408a-a85c-1f3c09347e4d" alt="Clipboard" width="32.5%">
+<img src="https://github.com/user-attachments/assets/c0f6a19a-c53e-4038-b0a0-353309e3c14b" alt="General Showcase" width="32.5%">
 
 ### Shell and Terminal
 - Main shell: bash
