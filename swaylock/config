@@ -1,41 +1,38 @@
 daemonize
-show-failed-attempts
 clock
 screenshot
-effect-blur=9x5
-effect-vignette=0.5:0.5
-color=1f1d2e80
+effect-blur=10x3
 font=JetBrains Mono Nerd Font
-indicator
+indicator-idle-visible
 indicator-radius=200
 indicator-thickness=12
 
 # Default colors
-ring-color=#e0def4
-line-color=#00000000
-inside-color=#00000040
+ring-color=#0a0a0a
+line-color=#0a0a0a
+inside-color=#00000080
 text-color=#e0def4
-key-hl-color=#6b6780
-separator-color=#00000000
+key-hl-color=#e0def4
+separator-color=#0a0a0a
 
 # Verifying password
-ring-ver-color=#6b6780
+ring-ver-color=#e0def4
 line-ver-color=#00000000
-inside-ver-color=#00000040
+inside-ver-color=#00000080
 text-ver-color=#e0def4
 
 # Wrong password
-ring-wrong-color=#e92d4d
+ring-wrong-color=#e06c75
 line-wrong-color=#00000000
-inside-wrong-color=#00000040
-text-wrong-color=#e92d4d
+inside-wrong-color=#00000080
+text-wrong-color=#e06c75
 
 # Clear
-ring-clear-color=#9ccfd8
+ring-clear-color=#e0def4
 line-clear-color=#00000000
-inside-clear-color=#00000040
+inside-clear-color=#00000080
 text-clear-color=#e0def4
-bs-hl-color=#9ccfd8
+bs-hl-color=#e0def4
 
 # Other configs
 grace=2
@@ -43,5 +40,4 @@ grace-no-mouse
 grace-no-touch
 datestr=%a, %e %B
 timestr=%H:%M
-fade-in=0
 ignore-empty-password
