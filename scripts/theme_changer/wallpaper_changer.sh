@@ -1,8 +1,14 @@
 #!/bin/bash
 
+set -euo pipefail
+
+LOG_FILE="/tmp/wallpaper_script.log"
+exec >"$LOG_FILE" 2>&1
+
+
 # === PARAMETERS ===
 WALLPAPER_DIR="$HOME/Pictures/wallpapers"
-DEST_PATH="/usr/share/sddm/themes/sdt/wallpaper.png"
+DEST_PATH="/usr/share/sddm/themes/pixie/assets/wallpaper.png"
 TMP_PATH="/tmp/sddm_wallpaper_tmp.png"
 BLUR_LEVEL="0x12"
 CONFIG_WALLPAPER_DIR="$HOME/.config/wallpaper"
@@ -73,7 +79,7 @@ echo "Generating blurred wallpaper for SDDM..."
     cp "$TMP_PATH" "$BLURRED_SAVE_PATH"
     
     # Attempt to copy to SDDM without blocking if sudo fails or requires password
-    if sudo -n cp "$BLURRED_SAVE_PATH" "$DEST_PATH" 2>/dev/null; then
+    if sudo -n cp "$CURRENT_WALLPAPER" "$DEST_PATH" 2>/dev/null; then
         echo "SDDM wallpaper successfully updated."
     else
         echo "SDDM update skipped (requires sudo or password-less sudo rule)."

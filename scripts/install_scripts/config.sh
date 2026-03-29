@@ -11,14 +11,14 @@ DYNAMIC_BORDER="dynamic-border.conf"
 
 # Additional resources (wallpaper, .bashrc etc)
 RESOURCES_FOLDER="dotfiles-resources"
-SDDM_THEME="sdt"
+SDDM_THEME="pixie"
 SDDM_THEME_FOLDER="/usr/share/sddm/themes"
 
 # Theme chooser configuration
 DEFAULT_WALLPAPER="City-Rain.png"
 SUDOERS_FILE="/etc/sudoers.d/sddm-wallpaper"
-WALLPAPER_SOURCE="wallpaper/blurred_wallpaper.png"
-SDDM_DEST="$SDDM_THEME_FOLDER/$SDDM_THEME/wallpaper.png"
+WALLPAPER_SOURCE="wallpaper/current_wallpaper.png"
+SDDM_DEST="$SDDM_THEME_FOLDER/$SDDM_THEME/assets/wallpaper.png"
 THEME_CHANGER_MAIN_SCRIPT="theme_changer/wallpaper_changer.sh"
 THUMBNAIL_GENERATOR="generate_thumbnails.sh"
 
