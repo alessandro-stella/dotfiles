@@ -6,7 +6,7 @@ This configuration prioritizes simplicity and usability for developers, without 
 <br>
 
 ## Configuration Overview
-<img src="https://github.com/user-attachments/assets/051adf6d-499c-4ed0-bfde-dbf714c8b50e" alt="SDDM Greeter" width="32.5%">
+<img src="https://github.com/user-attachments/assets/d17316e3-3372-438e-98d2-ffc7b73b1926" alt="SDDM Greeter" width="32.5%">
 <img src="https://github.com/user-attachments/assets/cc831832-8fae-4997-b7af-83e77769ae40" alt="Wlogout" width="32.5%">
 <img src="https://github.com/user-attachments/assets/fa686d04-cfa2-475f-a757-a75cb4fa2f65" alt="Shell and Notification Center" width="32.5%">
 <img src="https://github.com/user-attachments/assets/fa7066c7-ec83-4e6c-a03e-7814cb2cfb14" alt="App Launcher" width="32.5%">
@@ -26,7 +26,7 @@ This configuration prioritizes simplicity and usability for developers, without 
 - File manager: nautilus (<kbd>SUPER</kbd> + <kbd>E</kbd>)
 - GTK / QT theme: adw-gtk3
 - Icon set: Adwaita
-- Login greeter: SDDM
+- Login greeter: SDDM with a slightly edited version of <a href="https://github.com/xCaptaiN09/pixie-sddm">pixie</a> theme
 - Lock: swaylock (<kbd>SUPER</kbd> + <kbd>SHIFT</kbd> + <kbd>L</kbd>) and wlogout (<kbd>SUPER</kbd> + <kbd>M</kbd>)
 - Notification management: swaync (<kbd>SUPER</kbd> + <kbd>N</kbd>)
 - Multimedia and audio: pamixer, pavucontrol, blueman, brightnessctl
