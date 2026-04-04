@@ -58,9 +58,9 @@ PACMAN_PACKAGES=(
   "qt6-wayland"
   "kirigami-addons"
   "rsync"
+  "awww",
   "tlp"
   "ufw"
-  "yazi"
   "rofi"
   "jq"
   "bc"
@@ -95,7 +95,6 @@ PACMAN_PACKAGES=(
 
 YAY_PACKAGES=(
   "wallust"
-  "swww"
   "brave-bin"
   "google-java-format"
   "oh-my-posh-bin"

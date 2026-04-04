@@ -352,7 +352,7 @@ fi
 
 
 # Start wallpaper and notification daemon
-sudo -u "$USER_NAME" -H HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprctl dispatch exec "swww-daemon"
+sudo -u "$USER_NAME" -H HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprctl dispatch exec "awww-daemon"
 sudo -u "$USER_NAME" -H HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprctl dispatch exec "swaync"
 sleep 1
 

@@ -12,12 +12,12 @@ DEST_PATH="/usr/share/sddm/themes/pixie/assets/wallpaper.png"
 TMP_PATH="/tmp/sddm_wallpaper_tmp.png"
 BLUR_LEVEL="0x12"
 CONFIG_WALLPAPER_DIR="$HOME/.config/wallpaper"
-# Updated name for clarity, acts as the reference for swww
+# Updated name for clarity, acts as the reference for awww
 CURRENT_WALLPAPER="$CONFIG_WALLPAPER_DIR/current_wallpaper.png"
 BLURRED_SAVE_PATH="$CONFIG_WALLPAPER_DIR/blurred_wallpaper.png"
 
 # === CHECK DEPENDENCIES ===
-for cmd in magick swww bc; do
+for cmd in magick awww bc; do
   if ! command -v "$cmd" &>/dev/null; then
     echo "Error: '$cmd' is not installed."
     exit 1
@@ -42,11 +42,11 @@ echo "Selected wallpaper: $SELECTED_IMAGE"
 # Update symbolic link or copy file to maintain a fixed reference
 cp "$SELECTED_IMAGE" "$CURRENT_WALLPAPER"
 
-# === APPLY WITH SWWW ===
+# === APPLY WITH AWWW ===
 # Check if the daemon is active, start it if not
-if ! swww query &>/dev/null; then
-    echo "Starting swww-daemon..."
-    swww-daemon &
+if ! awww query &>/dev/null; then
+    echo "Starting awww-daemon..."
+    awww-daemon &
     sleep 0.5
 fi
 
@@ -57,7 +57,7 @@ RAND_Y=$(echo "scale=2; $((RANDOM % 101)) / 100" | bc)
 echo "Transition starting at X:$RAND_X Y:$RAND_Y"
 
 # Apply wallpaper with optimized transition
-swww img "$CURRENT_WALLPAPER" \
+awww img "$CURRENT_WALLPAPER" \
     --transition-type grow \
     --transition-pos "$RAND_X,$RAND_Y" \
     --transition-step 90 \

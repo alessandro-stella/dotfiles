@@ -169,9 +169,9 @@ PACMAN_PACKAGES=(
   "qt6-wayland"
   "kirigami-addons"
   "rsync"
+  "awww",
   "tlp"
   "ufw"
-  "yazi"
   "rofi"
   "jq"
   "bc"
@@ -206,7 +206,6 @@ PACMAN_PACKAGES=(
 
 YAY_PACKAGES=(
   "wallust"
-  "swww"
   "brave-bin"
   "google-java-format"
   "oh-my-posh-bin"
@@ -480,7 +479,7 @@ fi
 
 
 # Start wallpaper and notification daemon
-sudo -u "$USER_NAME" -H HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprctl dispatch exec "swww-daemon"
+sudo -u "$USER_NAME" -H HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprctl dispatch exec "awww-daemon"
 sudo -u "$USER_NAME" -H HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprctl dispatch exec "swaync"
 sleep 1
 
