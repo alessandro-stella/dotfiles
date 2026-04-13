@@ -25,6 +25,7 @@ evince
 systemd
 vesktop
 spotify
+create-next-app-nodejs
 
 electron-builder.json
 kwalletrc

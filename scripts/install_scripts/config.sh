@@ -90,6 +90,7 @@ PACMAN_PACKAGES=(
   "libreoffice-still-it"
   "npm"
   "jdk-openjdk"
+  "apostrophe"
   "neovim"
 )
 
