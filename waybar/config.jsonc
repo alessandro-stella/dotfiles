@@ -134,7 +134,8 @@
     ],
     "on-scroll-up": "brightnessctl set 1%+",
     "on-scroll-down": "brightnessctl set 1%-",
-    "smooth-scrolling-threshold": 0.5
+    "smooth-scrolling-threshold": 0.5,
+    "tooltip": false
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
