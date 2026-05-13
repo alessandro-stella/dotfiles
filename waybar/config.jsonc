@@ -142,8 +142,8 @@
     "format-muted": "",
     "on-click": "pamixer -t", // Mute
     "on-click-right": "pavucontrol",
-    "on-scroll-down": "pamixer -i 1",
-    "on-scroll-up": "pamixer -d 1",
+    "on-scroll-down": "pamixer -i 5",
+    "on-scroll-up": "pamixer -d 5",
     "smooth-scrolling-threshold": 0.5,
     "scroll-step": 0.5,
     "format-icons": {

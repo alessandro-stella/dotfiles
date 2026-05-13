@@ -109,7 +109,6 @@ tooltip label {
 }
 
 #workspaces button.urgent {
-  color: #e92d4d;
   border-top: 1px solid;
   border-bottom: 1px solid;
 }
@@ -127,7 +126,6 @@ tooltip label {
 
 #pulseaudio {
   color: #89b4fa;
-  padding-left: 5px;
 }
 
 #pulseaudio.microphone {
