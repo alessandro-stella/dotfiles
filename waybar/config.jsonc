@@ -5,7 +5,7 @@
   "exclusive": true,
   "passthrough": false,
   "gtk-layer-shell": true,
-  "height": 45,
+  "height": 40,
   "modules-left": [
     "custom/launch_rofi",
     "hyprland/workspaces",
@@ -28,7 +28,7 @@
   ],
   "custom/launch_rofi": {
     "format": "",
-    "on-click": "pkill rofi; rofi -show drun",
+    "on-click": "pkill rofi; rofi -theme ~/.config/rofi/app_launcher.rasi -show drun",
     "tooltip": false
   },
   "cpu": {
@@ -132,18 +132,19 @@
       "󰃟",
       "󰃠"
     ],
-    "on-scroll-up": "brightnessctl set 1%+",
-    "on-scroll-down": "brightnessctl set 1%-",
+    "on-scroll-down": "brightnessctl set 1%+",
+    "on-scroll-up": "brightnessctl set 1%-",
     "smooth-scrolling-threshold": 0.5,
     "tooltip": false
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
-    "format-muted": " ",
-    "on-click": "pamixer -t",
+    "format-muted": "",
+    "on-click": "pamixer -t", // Mute
     "on-click-right": "pavucontrol",
-    "on-scroll-up": "pamixer -i 5",
-    "on-scroll-down": "pamixer -d 5",
+    "on-scroll-down": "pamixer -i 1",
+    "on-scroll-up": "pamixer -d 1",
+    "smooth-scrolling-threshold": 0.5,
     "scroll-step": 0.5,
     "format-icons": {
       "headphone": "",
@@ -155,18 +156,19 @@
       "default": [
         "",
         "",
-        " "
+        ""
       ]
     }
   },
   "pulseaudio#microphone": {
     "format": "{format_source}",
     "format-source": " {volume}%",
-    "format-source-muted": " ",
-    "on-click": "pamixer --default-source -t",
+    "format-source-muted": "",
+    "on-click": "pamixer --default-source -t", // Mute
     "on-click-right": "pavucontrol",
-    "on-scroll-up": "pamixer --default-source -i 5",
-    "on-scroll-down": "pamixer --default-source -d 5",
+    "on-scroll-down": "pamixer --default-source -i 5",
+    "on-scroll-up": "pamixer --default-source -d 5",
+    "smooth-scrolling-threshold": 0.5,
     "scroll-step": 0.5
   }
 }
