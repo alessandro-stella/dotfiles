@@ -1,4 +1,4 @@
-# Common recent settings file for Wireshark 4.6.4.
+# Common recent settings file for Wireshark 4.6.5.
 #
 # This file is regenerated each time Wireshark is quit
 # and when changing configuration profile.
@@ -18,7 +18,7 @@
 gui.geometry_main_x: 0
 gui.geometry_main_y: 0
 gui.geometry_main_width: 1576
-gui.geometry_main_height: 831
+gui.geometry_main_height: 836
 
 # Main window maximized.
 # true or false (case-insensitive).
@@ -26,7 +26,7 @@ gui.geometry_main_maximized: true
 
 # Main window geometry state.
 # Hex byte string.
-gui.geometry_main: 01d9d0cb000300000000000000000000000006270000033e0000000000000000000006270000033e000000000200000006400000000000000000000006270000033e
+gui.geometry_main: 01d9d0cb0003000000000000000000000000062700000343000000000000000000000627000003430000000002000000064000000000000000000000062700000343
 
 # Leftalign Action Buttons.
 # true or false (case-insensitive).
@@ -70,6 +70,29 @@ gui.search_multiple_occurs: false
 # Find packet search type.
 # One of: DISPLAY_FILTER, HEX_VALUE, STRING, REGEX
 gui.search_type: DISPLAY_FILTER
+
+# Welcome page sidebar Learn section visible.
+# true or false (case-insensitive).
+gui.welcome_page.sidebar.learn_visible: true
+
+# Welcome page sidebar Tips section visible.
+# true or false (case-insensitive).
+gui.welcome_page.sidebar.tips_visible: true
+
+# Welcome page sidebar Tips event slides.
+# true or false (case-insensitive).
+gui.welcome_page.sidebar.tips_events: true
+
+# Welcome page sidebar Tips sponsorship slides.
+# true or false (case-insensitive).
+gui.welcome_page.sidebar.tips_sponsorship: true
+
+# Welcome page sidebar Tips tip-of-the-day slides.
+# true or false (case-insensitive).
+gui.welcome_page.sidebar.tips_tips: true
+
+# Welcome page sidebar Tips slide auto-advance interval in seconds.
+gui.welcome_page.sidebar.tips_interval: 8
 
 # Geometry and maximized state of PreferencesDialog window.
 # Decimal integers.

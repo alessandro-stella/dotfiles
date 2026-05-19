@@ -12,7 +12,7 @@
       "alignment": "left",
       "segments": [
         {
-          "properties": {
+          "options": {
             "cache_duration": "none"
           },
           "template": "\n╭─",
@@ -21,41 +21,19 @@
           "style": "plain"
         },
         {
-          "properties": {
+          "options": {
             "cache_duration": "none"
           },
           "leading_diamond": "",
           "template": "{{ .UserName }}",
+          "trailing_diamond": "█",
           "foreground": "p:color15",
           "background": "p:color0",
           "type": "session",
           "style": "diamond"
         },
         {
-          "properties": {
-            "cache_duration": "none"
-          },
-          "template": "󱐋",
-          "foreground": "#ff5555",
-          "powerline_symbol": "",
-          "background": "p:color12",
-          "type": "root",
-          "style": "powerline"
-        },
-        {
-          "properties": {
-            "cache_duration": "none"
-          },
-          "template": "{{ .Icon }}  ",
-          "foreground": "p:color15",
-          "powerline_symbol": "",
-          "background": "p:color0",
-          "type": "os",
-          "style": "powerline"
-        },
-        {
-          "properties": {
-            "cache_duration": "none",
+          "options": {
             "style": "full"
           },
           "trailing_diamond": "",
@@ -72,13 +50,10 @@
       "alignment": "right",
       "segments": [
         {
-          "properties": {
+          "options": {
             "branch_icon": "",
-            "cache_duration": "none",
-            "display_changing_color": true,
             "fetch_status": true,
-            "fetch_upstream_icon": true,
-            "full_branch_path": true
+            "fetch_upstream_icon": true
           },
           "leading_diamond": "",
           "trailing_diamond": "",
@@ -98,7 +73,7 @@
           "style": "diamond"
         },
         {
-          "properties": {
+          "options": {
             "display_mode": "files",
             "extensions": [
               "package-lock.json"
@@ -113,7 +88,7 @@
           "style": "diamond"
         },
         {
-          "properties": {
+          "options": {
             "display_mode": "files",
             "extensions": [
               "pnpm-lock.yaml"
@@ -128,7 +103,7 @@
           "style": "diamond"
         },
         {
-          "properties": {
+          "options": {
             "display_mode": "files"
           },
           "leading_diamond": "",
@@ -164,7 +139,7 @@
       "alignment": "left",
       "segments": [
         {
-          "properties": {
+          "options": {
             "always_enabled": true,
             "cache_duration": "none"
           },
