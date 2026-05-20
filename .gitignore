@@ -26,6 +26,7 @@ systemd
 vesktop
 spotify
 create-next-app-nodejs
+wireshark
 
 electron-builder.json
 kwalletrc
