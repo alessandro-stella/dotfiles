@@ -253,5 +253,5 @@
     "tooltip": true,
     "tooltip-format": "{used} used out of {total}",
     "on-click": "kitty --title btop sh -c 'btop'"
-  },
+  }
 }
