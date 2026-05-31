@@ -27,6 +27,7 @@ vesktop
 spotify
 create-next-app-nodejs
 wireshark
+ngrok
 
 electron-builder.json
 kwalletrc
