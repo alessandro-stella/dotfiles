@@ -81,10 +81,10 @@
       "warning": 30,
       "critical": 10
     },
-    "tooltip-format": "{capacity}%",
     "format": "{icon}",
-    "tooltip-format-charging": " {capacity}%",
-    "tooltip-format-plugged": " {capacity}%",
+    "tooltip-format": "Capacity: {capacity}%",
+    "format-chaging": "",
+    "format-plugged": "",
     "format-icons": [
       "󰂎",
       "󰁺",
