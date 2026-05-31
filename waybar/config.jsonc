@@ -223,7 +223,6 @@
       "children-class": "tray-group-item"
     },
     "modules": [
-      // "custom/cpu-icon",
       "cpu",
       "memory",
       "disk"
