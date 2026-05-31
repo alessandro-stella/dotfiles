@@ -19,10 +19,10 @@
     "group/tray-expander",
     "custom/notification",
     "custom/temperature",
+    "battery",
     "network",
     "pulseaudio",
-    "cpu",
-    "battery"
+    "cpu"
   ],
   "custom/arch_logo": {
     "format": "",
@@ -128,6 +128,8 @@
     "format-muted": "",
     "on-click": "pamixer -t", // Mute
     "on-click-right": "pavucontrol",
+    "on-scroll-down": "pamixer -i 5",
+    "on-scroll-up": "pamixer -d 5",
     "tooltip-format": "Volume: {volume}%",
     "format-icons": {
       "headphone": "",
@@ -186,8 +188,8 @@
     "modules": [
       "custom/expand-icon",
       "tray",
-      "backlight",
-      "group/audio"
+      "group/audio",
+      "backlight"
     ]
   },
   "custom/expand-icon": {
