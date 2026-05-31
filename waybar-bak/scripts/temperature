@@ -56,22 +56,12 @@ if [ -z "$temp" ]; then
   done
 fi
 
-# Formatting output
 [ -z "$temp" ] && exit 1
 
-if [ "$temp" -ge "$CRITICAL" ]; then
-    icon="󱃂"
-    class="critical"
-    tooltip="Critical: $temp °C"
-elif [ "$temp" -lt 40 ]; then
-    icon="󱃃"
-    class="cool"
-    tooltip="Cool: $temp °C"
-else
-    icon="󰔏"
-    class="normal"
-    tooltip="Normal: $temp °C"
-fi
+icon="󰔏"
+[ "$temp" -lt 40 ] && icon="󱃃"
+[ "$temp" -ge "$CRITICAL" ] && icon="󱃂"
 
-printf '{"text":"%s","class":"%s","tooltip":"%s"}\n' \
-    "$icon" "$class" "$tooltip"
+class=$([ "$temp" -ge "$CRITICAL" ] && echo "critical" || echo "normal")
+
+echo "{\"text\":\"$icon $temp°C\",\"class\":\"$class\"}"

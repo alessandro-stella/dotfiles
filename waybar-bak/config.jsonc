@@ -1,43 +1,61 @@
 {
-  "reload_style_on_change": true,
   "layer": "top",
   "position": "top",
   "mod": "dock",
   "exclusive": true,
   "passthrough": false,
   "gtk-layer-shell": true,
-  "height": 35,
+  "height": 40,
   "modules-left": [
-    "custom/arch_logo",
+    "custom/launch_rofi",
     "hyprland/workspaces",
+    "cpu",
+    "memory",
+    "disk",
     "custom/updates"
   ],
   "modules-center": [
     "clock"
   ],
   "modules-right": [
-    "group/tray-expander",
     "custom/notification",
     "custom/temperature",
-    "network",
+    "battery",
+    "backlight",
     "pulseaudio",
-    "cpu",
-    "battery"
+    "pulseaudio#microphone",
+    "tray"
   ],
-  "custom/arch_logo": {
+  "custom/launch_rofi": {
     "format": "",
     "on-click": "pkill rofi; rofi -theme ~/.config/rofi/app_launcher.rasi -show drun",
     "tooltip": false
   },
   "cpu": {
     "interval": 10,
-    "format": "",
+    "format": " {usage}%",
     "max-length": 10,
+    "on-click": "kitty --title btop sh -c 'btop'"
+  },
+  "memory": {
+    "interval": 30,
+    "format": " {}%",
+    "max-length": 10,
+    "tooltip": true,
+    "tooltip-format": "RAM - {used:0.1f}GB used",
+    "on-click": "kitty --title btop sh -c 'btop'"
+  },
+  "disk": {
+    "interval": 30,
+    "format": "󰋊 {percentage_used}%",
+    "path": "/",
+    "tooltip": true,
+    "tooltip-format": "{used} used out of {total}",
     "on-click": "kitty --title btop sh -c 'btop'"
   },
   "custom/updates": {
     "tooltip": false,
-    "format": "",
+    "format": " {}",
     "exec": "~/.config/waybar/scripts/update-sys",
     "on-click": "~/.config/waybar/scripts/update-sys update",
     "interval": 300,
@@ -45,10 +63,11 @@
   },
   "hyprland/workspaces": {
     "disable-scroll": true,
+    "all-outputs": true,
     "on-click": "activate"
   },
   "tray": {
-    "icon-size": 16,
+    "icon-size": 18,
     "spacing": 10
   },
   "clock": {
@@ -87,10 +106,10 @@
       "warning": 30,
       "critical": 10
     },
-    "tooltip-format": "{capacity}%",
-    "format": "{icon}",
-    "tooltip-format-charging": " {capacity}%",
-    "tooltip-format-plugged": " {capacity}%",
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
     "format-icons": [
       "󰂎",
       "󰁺",
@@ -103,12 +122,7 @@
       "󰂁",
       "󰂂",
       "󰁹"
-    ],
-    "events": {
-      "on-discharging-warning": "notify-send -i battery-caution -u normal 'Low battery'",
-      "on-discharging-critical": "notify-send -i battery-empty -u critical 'Battery critically low!'",
-      "on-charging-100": "notify-send -i battery-full -u normal 'Battery full!' 'You can unplug the charger'"
-    }
+    ]
   },
   "backlight": {
     "device": "intel_backlight",
@@ -124,26 +138,6 @@
     "tooltip": false
   },
   "pulseaudio": {
-    "format": "{icon}",
-    "format-muted": "",
-    "on-click": "pamixer -t", // Mute
-    "on-click-right": "pavucontrol",
-    "tooltip-format": "Volume: {volume}%",
-    "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": [
-        "",
-        "",
-        ""
-      ]
-    }
-  },
-  "pulseaudio#output": {
     "format": "{icon} {volume}%",
     "format-muted": "",
     "on-click": "pamixer -t", // Mute
@@ -166,7 +160,7 @@
       ]
     }
   },
-  "pulseaudio#input": {
+  "pulseaudio#microphone": {
     "format": "{format_source}",
     "format-source": " {volume}%",
     "format-source-muted": "",
@@ -176,48 +170,5 @@
     "on-scroll-up": "pamixer --default-source -d 5",
     "smooth-scrolling-threshold": 0.5,
     "scroll-step": 0.5
-  },
-  "group/tray-expander": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 600,
-      "children-class": "tray-group-item"
-    },
-    "modules": [
-      "custom/expand-icon",
-      "tray",
-      "backlight",
-      "group/audio"
-    ]
-  },
-  "custom/expand-icon": {
-    "format": "",
-    "tooltip": false
-  },
-  "group/audio": {
-    "orientation": "inherit",
-    "modules": [
-      "pulseaudio#output",
-      "pulseaudio#input"
-    ]
-  },
-  "network": {
-    "format-icons": [
-      "󰤯",
-      "󰤟",
-      "󰤢",
-      "󰤥",
-      "󰤨"
-    ],
-    "format": "{icon}",
-    "format-wifi": "{icon}",
-    "format-ethernet": "󰌗",
-    "format-disconnected": "󰤮",
-    "tooltip-format-wifi": "{essid} ({frequency} GHz)",
-    "tooltip-format-ethernet": "Connected",
-    "tooltip-format-disconnected": "Disconnected",
-    "interval": 3,
-    "spacing": 1,
-    "on-click": "nm-connection-editor"
   }
 }
