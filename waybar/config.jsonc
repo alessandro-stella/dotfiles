@@ -21,7 +21,7 @@
     "custom/temperature",
     "battery",
     "network",
-    "pulseaudio",
+    "group/main-audio",
     "group/hardware-info"
   ],
   "custom/arch_logo": {
@@ -40,10 +40,6 @@
   "hyprland/workspaces": {
     "disable-scroll": true,
     "on-click": "activate"
-  },
-  "tray": {
-    "icon-size": 16,
-    "spacing": 10
   },
   "clock": {
     "format": "{:%H:%M • %d %b %Y}",
@@ -117,13 +113,21 @@
     "smooth-scrolling-threshold": 0.5,
     "tooltip": false
   },
+  "group/main-audio": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 600
+    },
+    "modules": [
+      "pulseaudio",
+      "pulseaudio/slider"
+    ]
+  },
   "pulseaudio": {
     "format": "{icon}",
     "format-muted": "",
     "on-click": "pamixer -t", // Mute
     "on-click-right": "pavucontrol",
-    "on-scroll-down": "pamixer -i 5",
-    "on-scroll-up": "pamixer -d 5",
     "tooltip-format": "Volume: {volume}%",
     "format-icons": {
       "headphone": "",
@@ -138,6 +142,38 @@
         ""
       ]
     }
+  },
+  "pulseaudio/slider": {
+    "min": 0,
+    "max": 100
+  },
+  "group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 600,
+      "children-class": "tray-group-item"
+    },
+    "modules": [
+      "custom/expand-icon",
+      "tray",
+      "group/audio",
+      "backlight"
+    ]
+  },
+  "custom/expand-icon": {
+    "format": "",
+    "tooltip": false
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 10
+  },
+  "group/audio": {
+    "orientation": "inherit",
+    "modules": [
+      "pulseaudio#output",
+      "pulseaudio#input"
+    ]
   },
   "pulseaudio#output": {
     "format": "{icon} {volume}%",
@@ -173,30 +209,6 @@
     "smooth-scrolling-threshold": 0.5,
     "scroll-step": 0.5
   },
-  "group/tray-expander": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 600,
-      "children-class": "tray-group-item"
-    },
-    "modules": [
-      "custom/expand-icon",
-      "tray",
-      "group/audio",
-      "backlight"
-    ]
-  },
-  "custom/expand-icon": {
-    "format": "",
-    "tooltip": false
-  },
-  "group/audio": {
-    "orientation": "inherit",
-    "modules": [
-      "pulseaudio#output",
-      "pulseaudio#input"
-    ]
-  },
   "network": {
     "format-icons": [
       "󰤯",
@@ -227,10 +239,6 @@
       "memory",
       "disk"
     ]
-  },
-  "custom/cpu-icon": {
-    "format": "",
-    "tooltip": false
   },
   "cpu": {
     "interval": 10,
