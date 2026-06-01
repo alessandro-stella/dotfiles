@@ -1,4 +1,4 @@
-[theme_changer]: https://github.com/user-attachments/assets/9da37771-c02c-4b43-9895-63b8ea2739a9
+[theme_changer]: https://github.com/user-attachments/assets/85ed96c1-540c-4394-8dcf-07f1aee4036f
 
 # Dotfiles for custom Arch Linux + Hyprland config
 This configuration prioritizes simplicity and usability for developers, without sacrificing customizability and aesthetic.
@@ -8,10 +8,10 @@ This configuration prioritizes simplicity and usability for developers, without 
 ## Configuration Overview
 <img src="https://github.com/user-attachments/assets/d17316e3-3372-438e-98d2-ffc7b73b1926" alt="SDDM Greeter" width="32.5%">
 <img src="https://github.com/user-attachments/assets/cc831832-8fae-4997-b7af-83e77769ae40" alt="Wlogout" width="32.5%">
-<img src="https://github.com/user-attachments/assets/fa686d04-cfa2-475f-a757-a75cb4fa2f65" alt="Shell and Notification Center" width="32.5%">
-<img src="https://github.com/user-attachments/assets/fa7066c7-ec83-4e6c-a03e-7814cb2cfb14" alt="App Launcher" width="32.5%">
-<img src="https://github.com/user-attachments/assets/d926dd90-458e-408a-a85c-1f3c09347e4d" alt="Clipboard" width="32.5%">
-<img src="https://github.com/user-attachments/assets/c0f6a19a-c53e-4038-b0a0-353309e3c14b" alt="General Showcase" width="32.5%">
+<img src="https://github.com/user-attachments/assets/240c1a7d-17a0-4734-8dd7-1dfa24a5472d" alt="Shell and Notification Center" width="32.5%">
+<img src="https://github.com/user-attachments/assets/16a0e470-7a05-4234-8a17-3100ea7e8ec4" alt="App Launcher" width="32.5%">
+<img src="https://github.com/user-attachments/assets/f00b5f7e-476b-46f3-b285-d21b6ef16564" alt="Clipboard" width="32.5%">
+<img src="https://github.com/user-attachments/assets/c4266adf-ccd5-482e-910a-0589fde4c0f9" alt="General Showcase" width="32.5%">
 
 ### Shell and Terminal
 - Main shell: bash
@@ -55,7 +55,7 @@ On each login some scripts are launched to enhanche the user experience. All of 
 ## Theme changer
 ![alt_text][theme_changer]
 
-There's a built-in theme changer to create custom themes starting from an image. To create a theme you just need to add a "*.png*" inside "*~/Pictures/wallpapers*" and launch the theme changer. Every aspect of the configuration will be adapted to mime the palette of the choosen image.
+There's a built-in theme changer to create custom themes starting from an image. To create a theme you just need to add a "*.png*" inside "*~/Pictures/wallpapers*" and launch the theme changer. Every aspect of the configuration will be adapted to mime the palette of the choosen image. The theme will then be saved inside "*~/.config/themes/\<IMG NAME\>*" to both avoid useless delays and to better customize the new theme.
 
 <br>
 
