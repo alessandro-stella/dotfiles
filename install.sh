@@ -439,7 +439,7 @@ echo "Installing system assets and wallpapers... "
     chown "$USER_NAME":"$USER_NAME" "$HOME/.bashrc"
 
     # Add sudoers rule for the theme changer script
-    echo "$USER_NAME ALL=(ALL) NOPASSWD: /usr/bin/cp /home/$USER_NAME/.config/themes/* /usr/share/sddm/themes/pixie/assets/wallpaper.png" > "$SUDOERS_FILE" 
+    echo "$USER_NAME ALL=(ALL) NOPASSWD: /usr/bin/cp /home/$USER_NAME/.config/themes/current_wallpaper/blurred.png /usr/share/sddm/themes/pixie/assets/wallpaper.png" > "$SUDOERS_FILE" 
     chmod 440 "$SUDOERS_FILE"
 
     # Clean up temporary resource folder
@@ -494,7 +494,11 @@ chown -R "$USER_NAME":"$USER_NAME" "$HOME/Pictures"
 echo
 echo "Applying theme: $(basename "$SELECTED_WALLPAPER")"
 
-if ! sudo -u "$USER_NAME" -H "$CONFIG/scripts/$THEME_CHANGER_MAIN_SCRIPT" "$SELECTED_WALLPAPER"; then
+# Get exact theme path
+THEME_NAME=$(basename "${SELECTED_WALLPAPER%.*}")
+THEME_DIR="$CONFIG/themes/$THEME_NAME"
+
+if ! sudo -u "$USER_NAME" -H "$CONFIG/scripts/$THEME_CHANGER_MAIN_SCRIPT" "$SELECTED_WALLPAPER" "$THEME_DIR"; then
     echo "Warning: Theme chooser encountered an issue, but continuing installation..."
 fi
 
@@ -543,77 +547,66 @@ confirm_theme="${confirm_theme,,}"
 
 if [[ "$confirm_theme" == "n" ]]; then
 ### === START CLEANUP.SH === ###
-# Cleanup script if user dislikes the theme changer
+# Cleanup script se l'utente decide di rimuovere il theme changer,
+# mantenendo intatto l'ultimo tema generato e applicato.
 
+CONFIG="$HOME/.config"
+
+echo "Avvio la pulizia del Theme Changer..."
+
+# Arresta i demoni ad esso associati
+pkill awww-daemon || true
+
+# Elimina la libreria degli sfondi scaricati (lo sfondo attuale è salvo in current_wallpaper)
 rm -rf "$HOME/Pictures/wallpapers"
-rm -rf "$CONFIG/wallust"
 
+# Elimina i file temporanei e di cache generati dai nuovi script
+rm -rf "$HOME/.cache/wallust"
+rm -rf "$HOME/.cache/wallpaper_rofi"
+rm -rf "$HOME/.cache/gif_preview"
+rm -rf "$HOME/.cache/video_preview"
 
-# Change kitty config
-TARGET_FILE="$HOME/.config/kitty/kitty.conf"
-SEARCH_LINE='include ~/.cache/wallust/colors-kitty.conf'
-SOURCE_FILE="$HOME/.cache/wallust/colors-kitty.conf"
-CONTENT=$(<"$SOURCE_FILE")
+# Pulisce tutti i temi pre-generati tranne quello attualmente in uso
+if [ -d "$CONFIG/themes" ]; then
+    find "$CONFIG/themes" -mindepth 1 -maxdepth 1 -type d ! -name "current_wallpaper" -exec rm -rf {} +
+fi
 
-awk -v search="$SEARCH_LINE" -v replacement="$CONTENT" '
-    $0 == search { print replacement; next }
-    { print }
-' "$TARGET_FILE" > "${TARGET_FILE}.tmp" && mv "${TARGET_FILE}.tmp" "$TARGET_FILE"
-
-
-# Change rofi config
-TARGET_FILE="$HOME/.config/rofi/config.rasi"
-SEARCH_LINE='@theme "~/.cache/wallust/colors-rofi.rasi"'
-SOURCE_FILE="$HOME/.cache/wallust/colors-rofi.rasi"
-CONTENT=$(<"$SOURCE_FILE")
-
-awk -v search="$SEARCH_LINE" -v replacement="$CONTENT" '
-    $0 == search { print replacement; next }
-    { print }
-' "$TARGET_FILE" > "${TARGET_FILE}.tmp" && mv "${TARGET_FILE}.tmp" "$TARGET_FILE"
-
-
-# Remove templates
+# Elimina i template originali dei vari moduli
 rm -f "$CONFIG/waybar/template.css"
 rm -f "$CONFIG/wlogout/template.css"
 rm -f "$CONFIG/swaync/template.css"
 rm -f "$CONFIG/oh-my-posh/themes/template.omp.json"
+rm -f "$CONFIG/rofi/theme_changer.rasi"
 
-
-# Change hyprland border
+# Rimuove il bind della tastiera da Hyprland
 TARGET_FILE="$CONFIG/hypr/hyprland.conf"
-SEARCH_LINE='source = ~/.config/hypr/dynamic-border.conf'
-SOURCE_FILE="$HOME/.config/hypr/dynamic-border.conf"
-CONTENT=$(<"$SOURCE_FILE")
-
-awk -v search="$SEARCH_LINE" -v replacement="$CONTENT" '
-    $0 == search { print replacement; next }
-    { print }
-' "$TARGET_FILE" > "${TARGET_FILE}.tmp" && mv "${TARGET_FILE}.tmp" "$TARGET_FILE"
-
-sed -i "\|bind = $mainMod SHIFT, T, exec, sh $HOME/.config/scripts/theme_chooser.sh # Change theme based on wallpaper|d" "$TARGET_FILE"
-
-
-# Remove pacman dependencies
-for pkg in "${THEME_CHANGER_DEPENDENCIES_PACMAN[@]}"; do
-    sudo pacman -Rs --noconfirm "$pkg"
-done
-
-
-# Remove yay dependencies
-for pkg in "${THEME_CHANGER_DEPENDENCIES_YAY[@]}"; do
-    sudo -u "$USER_NAME" -H yay -R --noconfirm "$pkg"
-done
-
-
-# Removing useless scripts
-rm -rf "$THEME_CHANGER_SCRIPTS"
-
-
-# Removing sudoers rule
-if [ -f "$SUDOERS_FILE" ]; then
-    rm -f "$SUDOERS_FILE"
+if [ -f "$TARGET_FILE" ]; then
+    sed -i "\|bind = $mainMod SHIFT, T, exec, sh $HOME/.config/scripts/theme_changer/theme_chooser.sh # Change theme based on wallpaper|d" "$TARGET_FILE"
 fi
+
+# Rimuove le dipendenze di pacman
+for pkg in "${THEME_CHANGER_DEPENDENCIES_PACMAN[@]}"; do
+    if pacman -Qi "$pkg" &>/dev/null; then
+        sudo pacman -Rs --noconfirm "$pkg"
+    fi
+done
+
+# Rimuove le dipendenze di yay
+for pkg in "${THEME_CHANGER_DEPENDENCIES_YAY[@]}"; do
+    if pacman -Qi "$pkg" &>/dev/null; then
+        sudo -u "$USER_NAME" -H yay -R --noconfirm "$pkg"
+    fi
+done
+
+# Rimuove la cartella degli script del Theme Changer
+rm -rf "$CONFIG/scripts/$THEME_CHANGER_SCRIPTS"
+
+# Rimuove le regole sudoers aggiunte durante l'installazione
+if [ -f "$SUDOERS_FILE" ]; then
+    sudo rm -f "$SUDOERS_FILE"
+fi
+
+echo "Pulizia completata! L'ultimo tema impostato resterà attivo nel sistema."
 ### === END CLEANUP.SH === ###
 fi
 

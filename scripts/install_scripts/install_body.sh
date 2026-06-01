@@ -311,7 +311,7 @@ echo "Installing system assets and wallpapers... "
     chown "$USER_NAME":"$USER_NAME" "$HOME/.bashrc"
 
     # Add sudoers rule for the theme changer script
-    echo "$USER_NAME ALL=(ALL) NOPASSWD: /usr/bin/cp /home/$USER_NAME/.config/themes/* /usr/share/sddm/themes/pixie/assets/wallpaper.png" > "$SUDOERS_FILE" 
+    echo "$USER_NAME ALL=(ALL) NOPASSWD: /usr/bin/cp /home/$USER_NAME/.config/themes/current_wallpaper/blurred.png /usr/share/sddm/themes/pixie/assets/wallpaper.png" > "$SUDOERS_FILE" 
     chmod 440 "$SUDOERS_FILE"
 
     # Clean up temporary resource folder
@@ -366,7 +366,11 @@ chown -R "$USER_NAME":"$USER_NAME" "$HOME/Pictures"
 echo
 echo "Applying theme: $(basename "$SELECTED_WALLPAPER")"
 
-if ! sudo -u "$USER_NAME" -H "$CONFIG/scripts/$THEME_CHANGER_MAIN_SCRIPT" "$SELECTED_WALLPAPER"; then
+# Get exact theme path
+THEME_NAME=$(basename "${SELECTED_WALLPAPER%.*}")
+THEME_DIR="$CONFIG/themes/$THEME_NAME"
+
+if ! sudo -u "$USER_NAME" -H "$CONFIG/scripts/$THEME_CHANGER_MAIN_SCRIPT" "$SELECTED_WALLPAPER" "$THEME_DIR"; then
     echo "Warning: Theme chooser encountered an issue, but continuing installation..."
 fi
 

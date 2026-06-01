@@ -76,7 +76,7 @@ main() {
         mkdir -p "$theme_dir"
         
         notify-send -i "$selected_file" -u low 'Selected wallpaper:' "$(basename "$original_file")"
-        "$(dirname "$0")/wallpaper_chooser.sh" "$original_file" "$theme_dir"
+        "$(dirname "$0")/wallpaper_changer.sh" "$original_file" "$theme_dir"
     else
         notify-send -u low 'Selected wallpaper:' "$choice"
     fi

@@ -1,7 +1,5 @@
 #!/bin/bash
 set -euo pipefail
-LOG_FILE="/tmp/wallpaper_script.log"
-exec >"$LOG_FILE" 2>&1
 
 SELECTED_IMAGE="$1"
 THEME_DIR="$2"
