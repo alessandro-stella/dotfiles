@@ -311,7 +311,7 @@ echo "Installing system assets and wallpapers... "
     chown "$USER_NAME":"$USER_NAME" "$HOME/.bashrc"
 
     # Add sudoers rule for the theme changer script
-    echo "$USER_NAME ALL=(root) NOPASSWD: /usr/bin/cp $CONFIG/$WALLPAPER_SOURCE $SDDM_DEST" > "$SUDOERS_FILE"
+    echo "$USER_NAME ALL=(ALL) NOPASSWD: /usr/bin/cp /home/$USER_NAME/.config/themes/* /usr/share/sddm/themes/pixie/assets/wallpaper.png" > "$SUDOERS_FILE" 
     chmod 440 "$SUDOERS_FILE"
 
     # Clean up temporary resource folder

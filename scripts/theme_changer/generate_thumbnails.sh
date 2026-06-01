@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WALLPAPER_DIR="$HOME/.config/themes/wallpapers"
+WALLPAPER_DIR="$HOME/Pictures/wallpapers"
 THUMB_DIR="$WALLPAPER_DIR/thumbnails"
 THUMB_SIZE="320x180"
 QUALITY=80

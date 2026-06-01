@@ -5,8 +5,7 @@ exec >"$LOG_FILE" 2>&1
 
 SELECTED_IMAGE="$1"
 THEME_DIR="$2"
-WALLPAPER_DIR="$HOME/.config/themes/wallpapers"
-CURRENT_DIR="$WALLPAPER_DIR/current"
+CURRENT_DIR="$HOME/.config/themes/current_wallpaper"
 BLUR_LEVEL="0x12"
 
 REQUIRED_FILES=(

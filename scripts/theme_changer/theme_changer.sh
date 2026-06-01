@@ -2,7 +2,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-wallpaper_dir="$HOME/.config/themes/wallpapers/thumbnails"
+wallpaper_dir="$HOME/Pictures/wallpapers/thumbnails"
 cache_dir="$HOME/.cache/wallpaper_rofi"
 gif_cache_dir="$HOME/.cache/gif_preview"
 video_cache_dir="$HOME/.cache/video_preview"

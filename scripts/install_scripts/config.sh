@@ -19,7 +19,7 @@ DEFAULT_WALLPAPER="City-Rain.png"
 SUDOERS_FILE="/etc/sudoers.d/sddm-wallpaper"
 WALLPAPER_SOURCE="wallpaper/current_wallpaper.png"
 SDDM_DEST="$SDDM_THEME_FOLDER/$SDDM_THEME/assets/wallpaper.png"
-THEME_CHANGER_MAIN_SCRIPT="theme_changer/wallpaper_changer.sh"
+THEME_CHANGER_MAIN_SCRIPT="theme_changer/wallpaper_chooser.sh"
 THUMBNAIL_GENERATOR="generate_thumbnails.sh"
 
 THEME_CHANGER_DEPENDENCIES_PACMAN=(
