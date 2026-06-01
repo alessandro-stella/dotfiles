@@ -17,7 +17,7 @@ SDDM_THEME_FOLDER="/usr/share/sddm/themes"
 # Theme chooser configuration
 DEFAULT_WALLPAPER="City-Rain.png"
 SUDOERS_FILE="/etc/sudoers.d/sddm-wallpaper"
-WALLPAPER_SOURCE="wallpaper/current_wallpaper.png"
+WALLPAPER_SOURCE="themes/current_wallpaper/wallpaper.png"
 SDDM_DEST="$SDDM_THEME_FOLDER/$SDDM_THEME/assets/wallpaper.png"
 THEME_CHANGER_MAIN_SCRIPT="theme_changer/wallpaper_chooser.sh"
 THUMBNAIL_GENERATOR="generate_thumbnails.sh"
@@ -58,7 +58,7 @@ PACMAN_PACKAGES=(
   "qt6-wayland"
   "kirigami-addons"
   "rsync"
-  "awww",
+  "awww"
   "tlp"
   "ufw"
   "rofi"
@@ -83,9 +83,9 @@ PACMAN_PACKAGES=(
   "udisks2"
   "ntfs-3g"
   "evince"
-  "cliphist",
-  "wl-clipboard",
-  "wtype",
+  "cliphist"
+  "wl-clipboard"
+  "wtype"
   "libreoffice-still"
   "libreoffice-still-it"
   "npm"

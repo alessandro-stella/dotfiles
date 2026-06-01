@@ -61,33 +61,33 @@ install_pkg() {
 }
 
 # ============================
-# Start of installation script
+# Installation script starts here
 # ============================
 
 
-# Check if user used sudo to run the script
+# Check whether the script is being run with sudo
 if [ "$EUID" -ne 0 ]; then
-    echo "You need sudo permissions to run this script!"
+    echo "You need sudo privileges to run this script!"
     exit 1
 fi
 
 if [ -z "$SUDO_USER" ]; then
-    echo "Error: could not recognize the user who ran this script"
+    echo "Error: could not determine the user who launched this script"
     exit 1
 fi
 
 
-# Clean start
+# Clean startup
 clear
 
 
-# Defining local variables
+# Define local variables
 USER_NAME="$SUDO_USER"
 HOME="/home/$USER_NAME"
 CONFIG="$HOME/.config"
 
 
-# Try to recover the signature if not explicitly passed
+# Attempt to recover the signature if it was not explicitly passed
 if [ -z "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
   echo
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -102,12 +102,12 @@ if [ -z "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
 fi
 
 
-# Loop to keep sudo privileges active
+# Keep sudo privileges alive
 sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 echo
-echo "Starting install script..."
+echo "Starting installation script..."
 
 ### === START CONFIG.SH === ###
 
@@ -128,7 +128,7 @@ SDDM_THEME_FOLDER="/usr/share/sddm/themes"
 # Theme chooser configuration
 DEFAULT_WALLPAPER="City-Rain.png"
 SUDOERS_FILE="/etc/sudoers.d/sddm-wallpaper"
-WALLPAPER_SOURCE="wallpaper/current_wallpaper.png"
+WALLPAPER_SOURCE="themes/current_wallpaper/wallpaper.png"
 SDDM_DEST="$SDDM_THEME_FOLDER/$SDDM_THEME/assets/wallpaper.png"
 THEME_CHANGER_MAIN_SCRIPT="theme_changer/wallpaper_chooser.sh"
 THUMBNAIL_GENERATOR="generate_thumbnails.sh"
@@ -169,7 +169,7 @@ PACMAN_PACKAGES=(
   "qt6-wayland"
   "kirigami-addons"
   "rsync"
-  "awww",
+  "awww"
   "tlp"
   "ufw"
   "rofi"
@@ -194,9 +194,9 @@ PACMAN_PACKAGES=(
   "udisks2"
   "ntfs-3g"
   "evince"
-  "cliphist",
-  "wl-clipboard",
-  "wtype",
+  "cliphist"
+  "wl-clipboard"
+  "wtype"
   "libreoffice-still"
   "libreoffice-still-it"
   "npm"
@@ -298,7 +298,7 @@ fi
 echo
 
 
-# Ask confirm
+# Ask for confirmation
 echo -n "Do you want to proceed with the installation? [y/N] "
 read -r confirm < /dev/tty
 confirm="${confirm,,}"
@@ -390,12 +390,12 @@ printf "\r[100%%] Configurations deployed.\n"
 rm -rf "$HOME/$DOTFILES_FOLDER"
 
 
-# Configure per-device settings
+# Configure device-specific settings
 touch "$CONFIG/hypr/$CUSTOM_SETTINGS"
 echo "# Basic monitor configuration" > "$CONFIG/hypr/$CUSTOM_SETTINGS"
 echo "monitor = , preferred, auto, 1" >> "$CONFIG/hypr/$CUSTOM_SETTINGS"
 
-# Add file for custom keybinds
+# Add file for custom keybindings
 touch "$CONFIG/hypr/$CUSTOM_KEYBINDS"
 
 # Remove line from hyprland.conf
@@ -403,10 +403,10 @@ TARGET_FILE="$CONFIG/hypr/hyprland.conf"
 LINE='exec-once = ~/.config/scripts/update_configs.sh # Pull remote changes to .config and nvim'
 sed -i "\|$LINE|d" "$TARGET_FILE"
 
-# Create dynamic border file (will be setup after by theme chooser)
+# Create dynamic border file (will be configured later by the theme chooser)
 touch "$CONFIG/hypr/$DYNAMIC_BORDER"
 
-# Add exec permissions to all scripts
+# Grant execution permissions to all scripts
 chmod -R +x "$CONFIG/scripts"
 
 
@@ -421,10 +421,10 @@ if [ ! -d "$RESOURCES_FOLDER" ]; then
     exit 1
 fi
 
-echo "Installing system assets and wallpapers... "
+echo "Installing system assets and wallpapers..."
 
 {
-    # Create necessary directories
+    # Create required directories
     mkdir -p "$HOME/Pictures/Screenshots"
 
     # Move wallpapers
@@ -434,7 +434,7 @@ echo "Installing system assets and wallpapers... "
     mv -n "$RESOURCES_FOLDER/$SDDM_THEME" "$SDDM_THEME_FOLDER/"
     echo -e "[Theme]\nCurrent=$SDDM_THEME" | tee /etc/sddm.conf
 
-    # Override current .bashrc and fix ownership
+    # Replace current .bashrc and fix ownership
     mv -f "$RESOURCES_FOLDER/.bashrc" "$HOME/"
     chown "$USER_NAME":"$USER_NAME" "$HOME/.bashrc"
 
@@ -442,14 +442,14 @@ echo "Installing system assets and wallpapers... "
     echo "$USER_NAME ALL=(ALL) NOPASSWD: /usr/bin/cp /home/$USER_NAME/.config/themes/current_wallpaper/blurred.png /usr/share/sddm/themes/pixie/assets/wallpaper.png" > "$SUDOERS_FILE" 
     chmod 440 "$SUDOERS_FILE"
 
-    # Clean up temporary resource folder
+    # Clean temporary resources folder
     rm -rf "$HOME/$RESOURCES_FOLDER"
 } > /dev/null 2>&1
 
 echo "Done"
 
 
-# Run script to choose a theme
+# Run the theme selection script
 echo
 echo "Configuring theme"
 echo -n "Do you want to use a custom image? [y/N] "
@@ -458,7 +458,7 @@ SELECTED_WALLPAPER="$HOME/Pictures/wallpapers/$DEFAULT_WALLPAPER"
 
 if [[ "${use_custom,,}" == "y" ]]; then
     while true; do
-        echo -n "Insert image path (like $HOME/Downloads/img.png): "
+        echo -n "Enter image path (e.g. $HOME/Downloads/img.png): "
         read -r user_path < /dev/tty
 
         user_path="${user_path/#\~/$HOME}"
@@ -473,19 +473,19 @@ if [[ "${use_custom,,}" == "y" ]]; then
             SELECTED_WALLPAPER="$dest_path"
             break
         else
-            echo "Error: file not found. Try again"
+            echo "Error: file not found. Try again."
         fi
     done
 fi
 
 
-# Start wallpaper and notification daemon
+# Start wallpaper and notification daemons
 sudo -u "$USER_NAME" -H HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprctl dispatch exec "awww-daemon"
 sudo -u "$USER_NAME" -H HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprctl dispatch exec "swaync"
 sleep 1
 
 
-# Give user all permissions over copied files
+# Give the user ownership of all copied files
 chown -R "$USER_NAME":"$USER_NAME" "$CONFIG"
 chown -R "$USER_NAME":"$USER_NAME" "$HOME/Pictures"
 
@@ -499,25 +499,25 @@ THEME_NAME=$(basename "${SELECTED_WALLPAPER%.*}")
 THEME_DIR="$CONFIG/themes/$THEME_NAME"
 
 if ! sudo -u "$USER_NAME" -H "$CONFIG/scripts/$THEME_CHANGER_MAIN_SCRIPT" "$SELECTED_WALLPAPER" "$THEME_DIR"; then
-    echo "Warning: Theme chooser encountered an issue, but continuing installation..."
+    echo "Warning: Theme chooser encountered an issue, but installation will continue..."
 fi
 
 echo "Fixing cache permissions..."
 chown -R "$USER_NAME":"$USER_NAME" "$HOME/.cache"
 
 
-# Set theme and icons
+# Set GTK theme and icons
 sudo -u "$USER_NAME" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u $USER_NAME)/bus" gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 sudo -u "$USER_NAME" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u $USER_NAME)/bus" gsettings set org.gnome.desktop.interface icon-theme 'Adwaita'
 sudo -u "$USER_NAME" DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u $USER_NAME)/bus" gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
-# Force hyprland reload
+# Force Hyprland reload
 sudo -u "$USER_NAME" -H HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprctl reload
 sudo -u "$USER_NAME" -H HYPRLAND_INSTANCE_SIGNATURE="$HYPRLAND_INSTANCE_SIGNATURE" hyprctl dispatch exec "killall waybar; waybar"
 
 
-# Ask for neovim
-echo -n "Do you want to install/replace your config with OrionVim? [y/N] "
+# Ask about Neovim
+echo -n "Do you want to install/replace your configuration with OrionVim? [y/N] "
 read -r confirm < /dev/tty
 confirm="${confirm,,}"
 
@@ -540,73 +540,73 @@ if [[ "$confirm" == "y" ]]; then
 fi
 
 
-# Ask for theme changer
+# Ask whether to keep the theme changer
 echo -n "Do you want to keep the theme changer? [Y/n] "
 read -r confirm_theme < /dev/tty
 confirm_theme="${confirm_theme,,}"
 
 if [[ "$confirm_theme" == "n" ]]; then
 ### === START CLEANUP.SH === ###
-# Cleanup script se l'utente decide di rimuovere il theme changer,
-# mantenendo intatto l'ultimo tema generato e applicato.
+# Cleanup script if the user decides to remove the theme changer,
+# while keeping the last generated and applied theme intact.
 
 CONFIG="$HOME/.config"
 
-echo "Avvio la pulizia del Theme Changer..."
+echo "Starting Theme Changer cleanup..."
 
-# Arresta i demoni ad esso associati
+# Stop associated daemons
 pkill awww-daemon || true
 
-# Elimina la libreria degli sfondi scaricati (lo sfondo attuale è salvo in current_wallpaper)
+# Remove the downloaded wallpaper library (the current wallpaper is preserved in current_wallpaper)
 rm -rf "$HOME/Pictures/wallpapers"
 
-# Elimina i file temporanei e di cache generati dai nuovi script
+# Remove temporary files and caches generated by the new scripts
 rm -rf "$HOME/.cache/wallust"
 rm -rf "$HOME/.cache/wallpaper_rofi"
 rm -rf "$HOME/.cache/gif_preview"
 rm -rf "$HOME/.cache/video_preview"
 
-# Pulisce tutti i temi pre-generati tranne quello attualmente in uso
-if [ -d "$CONFIG/themes" ]; then
-    find "$CONFIG/themes" -mindepth 1 -maxdepth 1 -type d ! -name "current_wallpaper" -exec rm -rf {} +
-fi
-
-# Elimina i template originali dei vari moduli
+# Remove the original templates for the various modules
 rm -f "$CONFIG/waybar/template.css"
 rm -f "$CONFIG/wlogout/template.css"
 rm -f "$CONFIG/swaync/template.css"
 rm -f "$CONFIG/oh-my-posh/themes/template.omp.json"
 rm -f "$CONFIG/rofi/theme_changer.rasi"
 
-# Rimuove il bind della tastiera da Hyprland
+# Remove the keyboard binding from Hyprland
 TARGET_FILE="$CONFIG/hypr/hyprland.conf"
 if [ -f "$TARGET_FILE" ]; then
     sed -i "\|bind = $mainMod SHIFT, T, exec, sh $HOME/.config/scripts/theme_changer/theme_chooser.sh # Change theme based on wallpaper|d" "$TARGET_FILE"
 fi
 
-# Rimuove le dipendenze di pacman
+# Remove pacman dependencies
 for pkg in "${THEME_CHANGER_DEPENDENCIES_PACMAN[@]}"; do
     if pacman -Qi "$pkg" &>/dev/null; then
         sudo pacman -Rs --noconfirm "$pkg"
     fi
 done
 
-# Rimuove le dipendenze di yay
+# Remove yay dependencies
 for pkg in "${THEME_CHANGER_DEPENDENCIES_YAY[@]}"; do
     if pacman -Qi "$pkg" &>/dev/null; then
         sudo -u "$USER_NAME" -H yay -R --noconfirm "$pkg"
     fi
 done
 
-# Rimuove la cartella degli script del Theme Changer
+# Remove the Theme Changer scripts directory
 rm -rf "$CONFIG/scripts/$THEME_CHANGER_SCRIPTS"
 
-# Rimuove le regole sudoers aggiunte durante l'installazione
+# Remove the sudoers rules added during installation
 if [ -f "$SUDOERS_FILE" ]; then
     sudo rm -f "$SUDOERS_FILE"
 fi
 
-echo "Pulizia completata! L'ultimo tema impostato resterà attivo nel sistema."
+# Clean up all pre-generated themes
+if [ -d "$CONFIG/themes" ]; then
+    find "$CONFIG/themes" -mindepth 1 -maxdepth 1 -type d ! -name "current_wallpaper" -exec rm -rf {} +
+fi
+
+echo "Cleanup completed! The last applied theme will remain active on the system."
 ### === END CLEANUP.SH === ###
 fi
 
@@ -621,7 +621,7 @@ if [[ "$confirm_tlp" == "y" ]]; then
 fi
 
 # Enable and start UFW
-echo -n "Do you want to enable UFW firewall? [Y/n] "
+echo -n "Do you want to enable the UFW firewall? [Y/n] "
 read -r confirm_ufw < /dev/tty
 confirm_ufw="${confirm_ufw,,}"
 
@@ -634,23 +634,23 @@ if [[ "$confirm_ufw" == "y" || -z "$confirm_ufw" ]]; then
     ufw --force enable
 fi
 
-# Delete useless resources
+# Remove unnecessary resources
 sudo rm -rf "$CONFIG/$INSTALL_SCRIPTS"
 sudo rm -rf "$CONFIG/scripts/update-configs.sh"
 sudo rm "$CONFIG/install.sh"
 sudo rm "$CONFIG/README.md"
 sudo rm -rf "$HOME/yay"
 
-# Delete useless hyprland settings
+# Remove unnecessary Hyprland settings
 sed -i "\|exec-once = ~/.config/scripts/update_configs.sh|d" "$TARGET_FILE"
 
-# Clean sudo refresh added at the start
+# Stop sudo refresh loop started earlier
 kill $(jobs -p) 2>/dev/null || true
 
 echo
 echo "Installation completed!"
 
-echo -n "Do you want to reboot (suggested)? [Y/n] "
+echo -n "Do you want to reboot (recommended)? [Y/n] "
 read -r confirm < /dev/tty
 confirm="${confirm,,}"
 
@@ -659,5 +659,5 @@ if [[ "$confirm" != "n" ]]; then
     reboot
 fi
 
-echo "We suggest to close this terminal or run 'source ~/.bashrc' to complete the installation"
+echo "We recommend closing this terminal or running 'source ~/.bashrc' to complete the installation."
 echo "Enjoy your new setup!"
