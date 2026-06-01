@@ -1,9 +1,8 @@
 #!/bin/bash
-
 set -euo pipefail
 IFS=$'\n\t'
 
-wallpaper_dir="$HOME/Pictures/wallpapers/thumbnails"
+wallpaper_dir="$HOME/.config/themes/wallpapers/thumbnails"
 cache_dir="$HOME/.cache/wallpaper_rofi"
 gif_cache_dir="$HOME/.cache/gif_preview"
 video_cache_dir="$HOME/.cache/video_preview"
@@ -20,33 +19,26 @@ hash_dir_state() {
 generate_cache() {
     local hash
     hash=$(hash_dir_state)
-
     > "$cache_list"
-
     find -L "$wallpaper_dir" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.mp4" -o -iname "*.mkv" -o -iname "*.mov" -o -iname "*.webm" \) | sort -V > "$cache_list"
-
     echo "$hash" > "$cache_hash"
 }
 
 check_cache() {
     [[ ! -f "$cache_list" ]] && return 1
     [[ ! -f "$cache_hash" ]] && return 1
-
     local old_hash new_hash
     old_hash=$(cat "$cache_hash")
     new_hash=$(hash_dir_state)
-
     [[ "$old_hash" != "$new_hash" ]] && return 1
     return 0
 }
 
 generate_menu() {
     mapfile -t PICS < "$cache_list"
-
     for pic_path in "${PICS[@]}"; do
         pic_name=$(basename "$pic_path")
         display_name="${pic_name%.*}"
-
         printf "%s\x00icon\x1f%s\n" "$display_name" "$pic_path"
     done
 }
@@ -78,9 +70,13 @@ main() {
     done
 
     if [[ -f "$selected_file" ]]; then
-        original_file="${selected_file/thumbnails\//}"
+        original_file="${selected_file/\/thumbnails/}"
+        theme_name=$(basename "${original_file%.*}")
+        theme_dir="$HOME/.config/themes/$theme_name"
+        mkdir -p "$theme_dir"
+        
         notify-send -i "$selected_file" -u low 'Selected wallpaper:' "$(basename "$original_file")"
-        "$(dirname "$0")/wallpaper_changer.sh" "$original_file"
+        "$(dirname "$0")/wallpaper_chooser.sh" "$original_file" "$theme_dir"
     else
         notify-send -u low 'Selected wallpaper:' "$choice"
     fi
