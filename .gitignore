@@ -38,7 +38,9 @@ kwalletrc
 /hypr/device-settings.conf
 /hypr/custom-keybinds.conf
 
-/wallpaper
+/themes/current_wallpaper
+/rofi/colors.rasi
+/kitty/colors-kitty.conf
 /wlogout/style.css
 /swaync/style.css
 /waybar/style.css
