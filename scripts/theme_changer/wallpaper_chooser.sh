@@ -15,6 +15,8 @@ REQUIRED_FILES=(
     "waybar.css"
     "swaync.css"
     "current_theme.omp.json"
+    "colors-kitty.conf"
+    "colors.json"
 )
 
 mkdir -p "$CURRENT_DIR" "$THEME_DIR"
@@ -64,6 +66,11 @@ cp "$THEME_DIR/waybar.css" "$HOME/.config/waybar/style.css"
 cp "$THEME_DIR/swaync.css" "$HOME/.config/swaync/style.css"
 cp "$THEME_DIR/current_theme.omp.json" "$HOME/.config/oh-my-posh/themes/current_theme.omp.json"
 
+# --- MODIFICA: Copia il file per Kitty ---
+mkdir -p "$HOME/.config/kitty"
+cp "$THEME_DIR/colors-kitty.conf" "$HOME/.config/kitty/colors-kitty.conf"
+# ----------------------------------------
+
 # Transizione sfondo
 RAND_X=$(echo "scale=2; $((RANDOM % 101)) / 100" | bc)
 RAND_Y=$(echo "scale=2; $((RANDOM % 101)) / 100" | bc)
@@ -85,6 +92,9 @@ fi
 hyprctl reload
 pkill -x waybar && waybar &
 swaync-client -R && swaync-client -rs
+
+# Ricarica i colori di Kitty al volo se ci sono terminali aperti
+killall -SIGUSR1 kitty || true
 
 notify-send -i "$SELECTED_IMAGE" -u low "Wallpaper Changed" "Theme: $(basename "$THEME_DIR")"
 echo "Wallpaper update process completed!"

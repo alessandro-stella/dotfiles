@@ -138,6 +138,11 @@ for c in "${sorted_colors[@]:1}"; do
 done
 [[ -z "$color2" ]] && color2=${sorted_colors[1]}
 
+# --- MODIFICA: Salvataggio dei file nella cartella del tema ---
+cp "$WAL_COLORS_JSON" "$THEME_DIR/colors.json"
+cp "$KITTY_CONF" "$THEME_DIR/colors-kitty.conf"
+# --------------------------------------------------------------
+
 # Wlogout Output (solo generazione file, niente cp)
 hex=${color2#"#"}
 r=$((16#${hex:0:2})); g=$((16#${hex:2:2})); b=$((16#${hex:4:2}))

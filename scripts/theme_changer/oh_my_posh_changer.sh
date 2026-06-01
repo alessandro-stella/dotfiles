@@ -1,6 +1,6 @@
 #!/bin/bash
 THEME_DIR="$2"
-colors_file="$HOME/.cache/wallust/colors.json"
+colors_file="$THEME_DIR/colors.json"
 template="$HOME/.config/oh-my-posh/themes/template.omp.json"
 output="$THEME_DIR/current_theme.omp.json"
 lighten_percent=${3:-1}

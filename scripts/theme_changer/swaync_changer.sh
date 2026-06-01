@@ -1,6 +1,6 @@
 #!/bin/bash
 THEME_DIR="$2"
-WAL_COLORS_JSON="$HOME/.cache/wallust/colors-kitty.conf"
+WAL_COLORS_JSON="$THEME_DIR/colors-kitty.conf"
 TEMPLATE_CSS="$HOME/.config/swaync/template.css"
 OUTPUT_CSS="$THEME_DIR/swaync.css"
 
