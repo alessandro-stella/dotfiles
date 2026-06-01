@@ -5,6 +5,7 @@ THEME_DIR="$2"
 WAL_CACHE="$HOME/.cache/wallust"
 WAL_COLORS_JSON="$WAL_CACHE/colors.json"
 KITTY_CONF="$WAL_CACHE/colors-kitty.conf"
+ROFI_CONF="$WAL_CACHE/colors-rofi.rasi"
 
 HYPR_CONF="$THEME_DIR/dynamic-border.conf"
 TEMPLATE="$HOME/.config/wlogout/template.css"
@@ -141,6 +142,7 @@ done
 # --- MODIFICA: Salvataggio dei file nella cartella del tema ---
 cp "$WAL_COLORS_JSON" "$THEME_DIR/colors.json"
 cp "$KITTY_CONF" "$THEME_DIR/colors-kitty.conf"
+cp "$ROFI_CONF" "$THEME_DIR/colors-rofi.rasi"
 # --------------------------------------------------------------
 
 # Wlogout Output (solo generazione file, niente cp)

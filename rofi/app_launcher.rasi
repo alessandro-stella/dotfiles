@@ -21,7 +21,7 @@ configuration {
 }
 
 /* === Load wal colors === */
-@theme "~/.cache/wallust/colors-rofi.rasi"
+@theme "~/.config/rofi/colors.rasi"
 
 /* === Global Properties === */
 * {
@@ -72,7 +72,7 @@ inputbar {
     border-radius:               20px;
     orientation:                 horizontal;
     children:                    ["entry"];
-    background-image:            url("~/.config/wallpaper/current_wallpaper.png", width);
+    background-image:            url("~/.config/themes/current_wallpaper/wallpaper.png", width);
 }
 
 /* === Entry input === */

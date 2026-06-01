@@ -20,7 +20,7 @@ configuration {
 }
 
 /* === Load wal colors === */
-@theme "~/.cache/wallust/colors-rofi.rasi"
+@theme "~/.config/rofi/colors.rasi"
 
 /* === Global Properties === */
 * {

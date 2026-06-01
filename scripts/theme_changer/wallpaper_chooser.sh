@@ -17,6 +17,7 @@ REQUIRED_FILES=(
     "current_theme.omp.json"
     "colors-kitty.conf"
     "colors.json"
+    "colors-rofi.rasi"
 )
 
 mkdir -p "$CURRENT_DIR" "$THEME_DIR"
@@ -65,6 +66,7 @@ cp "$THEME_DIR/dynamic-border.conf" "$HOME/.config/hypr/dynamic-border.conf"
 cp "$THEME_DIR/waybar.css" "$HOME/.config/waybar/style.css"
 cp "$THEME_DIR/swaync.css" "$HOME/.config/swaync/style.css"
 cp "$THEME_DIR/current_theme.omp.json" "$HOME/.config/oh-my-posh/themes/current_theme.omp.json"
+cp "$THEME_DIR/colors-rofi.rasi" "$HOME/.config/rofi/colors.rasi"
 
 # --- MODIFICA: Copia il file per Kitty ---
 mkdir -p "$HOME/.config/kitty"
