@@ -128,7 +128,7 @@
     "format-muted": "",
     "on-click": "pamixer -t", // Mute
     "on-click-right": "pavucontrol",
-    "tooltip-format": "Volume: {volume}%",
+    "tooltip": false,
     "format-icons": {
       "headphone": "",
       "hands-free": "",
