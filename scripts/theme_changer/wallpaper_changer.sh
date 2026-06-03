@@ -30,9 +30,10 @@ is_theme_complete() {
 }
 
 if is_theme_complete; then
-    echo "Tema completo trovato. Utilizzo i file esistenti."
-else
-    echo "Tema incompleto o mancante. Inizio rigenerazione..."
+    echo "Theme found, copying existing files..."
+else 
+    notify-send -i "$SELECTED_IMAGE" -u low 'Building theme...' "Wallpaper: $(basename "$SELECTED_IMAGE")"
+    echo "Incomplete or missing theme, building needed files..."
     
     for cmd in magick awww bc; do
         if ! command -v "$cmd" &>/dev/null; then
@@ -46,17 +47,14 @@ else
         sleep 0.5
     fi
 
-    # 1. Genera palette e tutti i file CSS/JSON/CONF dentro THEME_DIR
     PALETTE_SCRIPT="$(dirname "$0")/palette_changer.sh"
     "$PALETTE_SCRIPT" "$SELECTED_IMAGE" "$THEME_DIR"
 
-    # 2. Genera il blurred wallpaper
-    echo "Generazione blurred wallpaper..."
+    echo "Genating blurred wallpaper..."
     magick "$SELECTED_IMAGE" -resize 1920x1080^ -gravity center -extent 1920x1080 -blur "$BLUR_LEVEL" "$THEME_DIR/blurred.png"
 fi
 
-# A questo punto i file in THEME_DIR ci sono sicuramente. Li copiamo nelle directory di sistema.
-echo "Applico i file del tema..."
+echo "Applying theme files..."
 cp "$SELECTED_IMAGE" "$CURRENT_DIR/wallpaper.png"
 cp "$THEME_DIR/blurred.png" "$CURRENT_DIR/blurred.png"
 cp "$THEME_DIR/wlogout_style.css" "$HOME/.config/wlogout/style.css"
@@ -65,13 +63,8 @@ cp "$THEME_DIR/waybar.css" "$HOME/.config/waybar/style.css"
 cp "$THEME_DIR/swaync.css" "$HOME/.config/swaync/style.css"
 cp "$THEME_DIR/current_theme.omp.json" "$HOME/.config/oh-my-posh/themes/current_theme.omp.json"
 cp "$THEME_DIR/colors-rofi.rasi" "$HOME/.config/rofi/colors.rasi"
-
-# --- MODIFICA: Copia il file per Kitty ---
-mkdir -p "$HOME/.config/kitty"
 cp "$THEME_DIR/colors-kitty.conf" "$HOME/.config/kitty/colors-kitty.conf"
-# ----------------------------------------
 
-# Transizione sfondo
 RAND_X=$(echo "scale=2; $((RANDOM % 101)) / 100" | bc)
 RAND_Y=$(echo "scale=2; $((RANDOM % 101)) / 100" | bc)
 
@@ -82,7 +75,6 @@ awww img "$SELECTED_IMAGE" \
     --transition-fps 60 \
     --transition-duration 1.5
 
-# Riavvio/Ricaricamento dei servizi
 if sudo -n cp "$CURRENT_DIR/blurred.png" "/usr/share/sddm/themes/pixie/assets/wallpaper.png" 2>/dev/null; then
     echo "SDDM wallpaper updated."
 else
@@ -93,7 +85,6 @@ hyprctl reload
 pkill -x waybar && waybar &
 swaync-client -R && swaync-client -rs
 
-# Ricarica i colori di Kitty al volo se ci sono terminali aperti
 killall -SIGUSR1 kitty || true
 
 echo "Wallpaper update process completed!"

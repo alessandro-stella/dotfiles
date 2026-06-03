@@ -75,7 +75,6 @@ main() {
         theme_dir="$HOME/.config/themes/$theme_name"
         mkdir -p "$theme_dir"
         
-        notify-send -i "$selected_file" -u low 'Changing theme...' "Wallpaper: $(basename "$original_file")"
         "$(dirname "$0")/wallpaper_changer.sh" "$original_file" "$theme_dir"
     else
         notify-send -u low 'Changing theme...' "Wallpaper: $(basename "$original_file")"
