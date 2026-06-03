@@ -14,7 +14,9 @@ for REPO in "${REPOS[@]}"; do
     REPO_NAME=$(basename "$REPO")
 
     if [ $STATUS -eq 0 ]; then
-      notify-send "[$REPO_NAME] Pull Success" "$OUTPUT"
+      if [[ "$OUTPUT" != *"Already up to date."* ]]; then
+        notify-send "[$REPO_NAME] Pull Success" "$OUTPUT"
+      fi
     else
       notify-send "[$REPO_NAME] Pull Failed" "$OUTPUT"
     fi
