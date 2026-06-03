@@ -96,5 +96,4 @@ swaync-client -R && swaync-client -rs
 # Ricarica i colori di Kitty al volo se ci sono terminali aperti
 killall -SIGUSR1 kitty || true
 
-notify-send -i "$SELECTED_IMAGE" -u low "Wallpaper Changed" "Theme: $(basename "$THEME_DIR")"
 echo "Wallpaper update process completed!"
