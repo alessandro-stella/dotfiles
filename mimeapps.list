@@ -17,6 +17,8 @@ x-scheme-handler/https=brave-browser.desktop
 x-scheme-handler/about=brave-browser.desktop
 x-scheme-handler/unknown=brave-browser.desktop
 x-scheme-handler/discord=vesktop.desktop
+image/svg+xml=org.gnome.Loupe.desktop
 
 [Added Associations]
 text/plain=org.gnome.gitlab.somas.Apostrophe.desktop;
+image/svg+xml=org.gnome.Loupe.desktop;
