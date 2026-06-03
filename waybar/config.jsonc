@@ -97,7 +97,7 @@
     "events": {
       "on-discharging-warning": "notify-send -i battery-caution -u normal 'Low battery'",
       "on-discharging-critical": "notify-send -i battery-empty -u critical 'Battery critically low!'",
-      "on-charging-100": "notify-send -i battery-full -u normal 'Battery full!' 'You can unplug the charger'"
+      "on-charging-full": "notify-send -i battery-full -u normal 'Battery full!' 'You can unplug the charger'"
     }
   },
   "backlight": {
