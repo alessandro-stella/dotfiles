@@ -73,13 +73,12 @@
   },
   "battery": {
     "states": {
-      "good": 100,
       "warning": 30,
       "critical": 10
     },
     "format": "{icon}",
     "tooltip-format": "Capacity: {capacity}%",
-    "format-chaging": "",
+    "format-charging": "",
     "format-plugged": "",
     "format-icons": [
       "󰂎",
@@ -97,7 +96,7 @@
     "events": {
       "on-discharging-warning": "notify-send -i battery-caution -u normal 'Low battery'",
       "on-discharging-critical": "notify-send -i battery-empty -u critical 'Battery critically low!'",
-      "on-charging-full": "notify-send -i battery-full -u normal 'Battery full!' 'You can unplug the charger'"
+      "on-charging-100": "notify-send -i battery-full -u normal 'Battery full!' 'You can unplug the charger'"
     }
   },
   "backlight": {
