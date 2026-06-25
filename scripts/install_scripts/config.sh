@@ -91,6 +91,7 @@ PACMAN_PACKAGES=(
   "npm"
   "jdk-openjdk"
   "apostrophe"
+  "setzer"
   "neovim"
 )
 

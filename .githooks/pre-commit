@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+~/.config/scripts/install_scripts/build_script.sh
+git add ~/.config/install.sh
