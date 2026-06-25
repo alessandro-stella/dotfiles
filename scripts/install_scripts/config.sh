@@ -92,6 +92,7 @@ PACMAN_PACKAGES=(
   "jdk-openjdk"
   "apostrophe"
   "setzer"
+  "texlive-latex-recommended"
   "neovim"
 )
 
