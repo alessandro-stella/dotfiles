@@ -35,9 +35,9 @@ kwalletrc
 /code-flags.conf
 /user-dirs.dirs
 /trashrc
-/hypr/dynamic-border.conf
-/hypr/device-settings.conf
-/hypr/custom-keybinds.conf
+/hypr/dynamic-border.lua
+/hypr/device-settings.lua
+/hypr/custom-keybinds.lua
 
 /themes/current_wallpaper
 /rofi/colors.rasi
