@@ -92,13 +92,15 @@ PACMAN_PACKAGES=(
   "jdk-openjdk"
   "apostrophe"
   "setzer"
-  "texlive-latex-recommended"
+  "texlive-latex"
+  "texlive-latexrecommended"
+  "texlive-fontsrecommended"
   "neovim"
 )
 
 YAY_PACKAGES=(
   "wallust"
-  "brave-bin"
+  "brave-origin-bin"
   "google-java-format"
   "oh-my-posh-bin"
   "wlogout"
