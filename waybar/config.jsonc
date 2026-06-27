@@ -38,8 +38,7 @@
     "max-length": 10
   },
   "hyprland/workspaces": {
-    "disable-scroll": true,
-    "on-click": "activate"
+    "disable-scroll": true
   },
   "clock": {
     "format": "{:%H:%M • %d %b %Y}",
