@@ -264,11 +264,22 @@ rm -rf "$HOME/$DOTFILES_FOLDER"
 
 # Configure device-specific settings
 touch "$CONFIG/hypr/$CUSTOM_SETTINGS"
-echo "# Basic monitor configuration" > "$CONFIG/hypr/$CUSTOM_SETTINGS"
-echo "monitor = , preferred, auto, 1" >> "$CONFIG/hypr/$CUSTOM_SETTINGS"
+cat >> "$CONFIG/hypr/$CUSTOM_SETTINGS" <<EOF
+-- Default monitor configuration
+
+hl.monitor({
+    output = "",
+    mode = "preferred",
+    position = "auto",
+    scale = 1,
+})
+EOF
 
 # Add file for custom keybindings
 touch "$CONFIG/hypr/$CUSTOM_KEYBINDS"
+
+# Add file for device-specific settings
+touch "$CONFIG/hypr/$CUSTOM_SETTINGS"
 
 # Remove line from hyprland.conf
 TARGET_FILE="$CONFIG/hypr/hyprland.conf"

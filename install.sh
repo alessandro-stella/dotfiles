@@ -116,9 +116,11 @@ GITHUB_LINK="https://github.com/alessandro-stella"
 DOTFILES_FOLDER="dotfiles"
 DOTFILES_REPO="$GITHUB_LINK/$DOTFILES_FOLDER"
 INSTALL_SCRIPTS="scripts/install_scripts"
-CUSTOM_SETTINGS="device-settings.conf"
-CUSTOM_KEYBINDS="custom-keybinds.conf"
-DYNAMIC_BORDER="dynamic-border.conf"
+HYPR_MODULES_FOLDER="modules"
+CUSTOM_SETTINGS="$HYPR_MODULES_FOLDER/device-settings.lua"
+MONITOR_SETTINGS="$HYPR_MODULES_FOLDER/monitors.lua"
+CUSTOM_KEYBINDS="$HYPR_MODULES_FOLDER/custom-keybinds.lua"
+DYNAMIC_BORDER="$HYPR_MODULES_FOLDER/dynamic-border.lua"
 
 # Additional resources (wallpaper, .bashrc etc)
 RESOURCES_FOLDER="dotfiles-resources"
@@ -396,11 +398,22 @@ rm -rf "$HOME/$DOTFILES_FOLDER"
 
 # Configure device-specific settings
 touch "$CONFIG/hypr/$CUSTOM_SETTINGS"
-echo "# Basic monitor configuration" > "$CONFIG/hypr/$CUSTOM_SETTINGS"
-echo "monitor = , preferred, auto, 1" >> "$CONFIG/hypr/$CUSTOM_SETTINGS"
+cat >> "$CONFIG/hypr/$CUSTOM_SETTINGS" <<EOF
+-- Default monitor configuration
+
+hl.monitor({
+    output = "",
+    mode = "preferred",
+    position = "auto",
+    scale = 1,
+})
+EOF
 
 # Add file for custom keybindings
 touch "$CONFIG/hypr/$CUSTOM_KEYBINDS"
+
+# Add file for device-specific settings
+touch "$CONFIG/hypr/$CUSTOM_SETTINGS"
 
 # Remove line from hyprland.conf
 TARGET_FILE="$CONFIG/hypr/hyprland.conf"

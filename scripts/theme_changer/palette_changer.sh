@@ -7,7 +7,7 @@ WAL_COLORS_JSON="$WAL_CACHE/colors.json"
 KITTY_CONF="$WAL_CACHE/colors-kitty.conf"
 ROFI_CONF="$WAL_CACHE/colors-rofi.rasi"
 
-HYPR_CONF="$THEME_DIR/dynamic-border.conf"
+HYPR_CONF="$THEME_DIR/dynamic-border.lua"
 TEMPLATE="$HOME/.config/wlogout/template.css"
 OUTPUT="$THEME_DIR/wlogout_style.css"
 
@@ -157,8 +157,16 @@ sed "s/__BUTTON_ACCENT__/$r, $g, $b/g" "$TEMPLATE" > "$OUTPUT"
 
 # Hyprland Output (solo generazione file, niente cp o reload)
 hex_with_opacity() { echo "${1#"#"}$OPACITY"; }
-echo "general {
-    col.active_border = rgba($(hex_with_opacity $color1)) rgba($(hex_with_opacity $color2)) 45deg
-}" > "$HYPR_CONF"
+cat > "$HYPR_CONF" <<EOF
+-- Dynamic border color used for theming
+
+hl.config({
+    general = {
+        col = {
+            active_border = { colors = { "rgba($(hex_with_opacity "$color1"))", "rgba($(hex_with_opacity "$color2"))" }, angle = 45 },
+        },
+    },
+})
+EOF
 
 echo "File di configurazione del tema creati in $THEME_DIR"
