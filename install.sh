@@ -205,9 +205,9 @@ PACMAN_PACKAGES=(
   "jdk-openjdk"
   "apostrophe"
   "setzer"
-  "texlive-latex"
-  "texlive-latexrecommended"
-  "texlive-fontsrecommended"
+  "texlive-latexextra"
+  "texlive-pictures"
+  "texlive-fontsextra"
   "neovim"
 )
 
